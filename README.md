@@ -23,20 +23,6 @@ The application is built with Qt Quick and is designed for embedded touchscreen 
 - In-app playback for recorded media
 - Media eject and format controls
 - Sensor-aware UI behavior for supported cameras
-
-## Supported Sensors
-
-### Sony IMX585
-
-- `3856x2180` up to `30 fps`
-- `1928x1090` up to `60 fps`
-
-### Sony IMX477
-
-- `1332x990` up to `100 fps`
-- `2028x1080` up to `60 fps`
-- `2028x1520` up to `30 fps`
-
 ## Architecture
 
 ```text
@@ -167,20 +153,8 @@ The UI uses ApertarCore for:
 - preview frame delivery
 - backend status synchronization
 
-## Project Structure
-
-```text
-Apertar-UI/
-├── qml/
-├── src/
-├── resources.qrc
-├── CMakeLists.txt
-└── README.md
-```
-
 ## Notes
 
 - Apertar-UI is designed around Raspberry Pi touchscreen operation
 - Sensor-specific capture rules belong in the backend, while the UI focuses on presentation and interaction
 - The application is intended to run with ApertarCore as its capture backend
-
