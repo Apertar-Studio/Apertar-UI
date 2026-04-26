@@ -1,0 +1,5 @@
+/home/donii/projects/cinepi_qt_preview/build/CMakeFiles/ApertarUI.dir
+/home/donii/projects/cinepi_qt_preview/build/CMakeFiles/edit_cache.dir
+/home/donii/projects/cinepi_qt_preview/build/CMakeFiles/rebuild_cache.dir
+/home/donii/projects/cinepi_qt_preview/build/CMakeFiles/ApertarUI_autogen_timestamp_deps.dir
+/home/donii/projects/cinepi_qt_preview/build/CMakeFiles/ApertarUI_autogen.dir

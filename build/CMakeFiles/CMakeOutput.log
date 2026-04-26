@@ -1,0 +1,303 @@
+The target system is: Linux -  - aarch64
+The host system is: Linux - 6.6.87.2-microsoft-standard-WSL2 - x86_64
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/aarch64-linux-gnu-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/donii/projects/cinepi_qt_preview/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out"
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/donii/projects/cinepi_qt_preview/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_be487 && [1/2] Building CXX object CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o
+Using built-in specs.
+COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++
+Target: aarch64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --without-target-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=aarch64-linux-gnu --program-prefix=aarch64-linux-gnu- --includedir=/usr/aarch64-linux-gnu/include --with-build-config=bootstrap-lto-lean --enable-link-serialization=2
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_be487.dir/'
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/cc1plus -quiet -v -imultiarch aarch64-linux-gnu -isysroot /home/donii/sysroots/pi5 -D_GNU_SOURCE /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_be487.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlittle-endian -mabi=lp64 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -o /tmp/ccHbGmin.s
+GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (aarch64-linux-gnu)
+	compiled by GNU C version 11.4.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/home/donii/sysroots/pi5/usr/local/include/aarch64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc-cross/aarch64-linux-gnu/11/include-fixed"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/aarch64-linux-gnu
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/backward
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/include
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include
+ /home/donii/sysroots/pi5/usr/include/aarch64-linux-gnu
+ /home/donii/sysroots/pi5/usr/include
+End of search list.
+GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (aarch64-linux-gnu)
+	compiled by GNU C version 11.4.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: fbc882a9ce49446607e846bb30e5b470
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_be487.dir/'
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/bin/as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccHbGmin.s
+GNU assembler version 2.38 (aarch64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38
+COMPILER_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/bin/
+LIBRARY_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/:/home/donii/sysroots/pi5/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/lib/../lib/:/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/usr/lib/../lib/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/:/home/donii/sysroots/pi5/lib/:/home/donii/sysroots/pi5/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.'
+[2/2] Linking CXX executable cmTC_be487
+Using built-in specs.
+COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/aarch64-linux-gnu/11/lto-wrapper
+Target: aarch64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --without-target-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=aarch64-linux-gnu --program-prefix=aarch64-linux-gnu- --includedir=/usr/aarch64-linux-gnu/include --with-build-config=bootstrap-lto-lean --enable-link-serialization=2
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) 
+COMPILER_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/bin/
+LIBRARY_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/:/home/donii/sysroots/pi5/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/lib/../lib/:/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/usr/lib/../lib/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/:/home/donii/sysroots/pi5/lib/:/home/donii/sysroots/pi5/usr/lib/
+COLLECT_GCC_OPTIONS='-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu' '-v' '-o' 'cmTC_be487' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_be487.'
+ /usr/lib/gcc-cross/aarch64-linux-gnu/11/collect2 -plugin /usr/lib/gcc-cross/aarch64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc-cross/aarch64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cci7mcil.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/donii/sysroots/pi5 --build-id --eh-frame-hdr --hash-style=gnu --as-needed -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_be487 /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/Scrt1.o /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crti.o /usr/lib/gcc-cross/aarch64-linux-gnu/11/crtbeginS.o -L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu -L/usr/lib/gcc-cross/aarch64-linux-gnu/11 -L/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib -L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/lib/../lib -L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/lib/../lib -L/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib -L/home/donii/sysroots/pi5/lib -L/home/donii/sysroots/pi5/usr/lib -rpath-link /home/donii/sysroots/pi5/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc-cross/aarch64-linux-gnu/11/crtendS.o /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crtn.o
+COLLECT_GCC_OPTIONS='-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu' '-v' '-o' 'cmTC_be487' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_be487.'
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11]
+    add: [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/aarch64-linux-gnu]
+    add: [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/backward]
+    add: [/usr/lib/gcc-cross/aarch64-linux-gnu/11/include]
+    add: [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include]
+    add: [/home/donii/sysroots/pi5/usr/include/aarch64-linux-gnu]
+    add: [/home/donii/sysroots/pi5/usr/include]
+  end of search list found
+  collapse include dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11] ==> [/usr/aarch64-linux-gnu/include/c++/11]
+  collapse include dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/aarch64-linux-gnu] ==> [/usr/aarch64-linux-gnu/include/c++/11/aarch64-linux-gnu]
+  collapse include dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/backward] ==> [/usr/aarch64-linux-gnu/include/c++/11/backward]
+  collapse include dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/include] ==> [/usr/lib/gcc-cross/aarch64-linux-gnu/11/include]
+  collapse include dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include] ==> [/usr/aarch64-linux-gnu/include]
+  collapse include dir [/home/donii/sysroots/pi5/usr/include/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/usr/include/aarch64-linux-gnu]
+  collapse include dir [/home/donii/sysroots/pi5/usr/include] ==> [/home/donii/sysroots/pi5/usr/include]
+  implicit include dirs: [/usr/aarch64-linux-gnu/include/c++/11;/usr/aarch64-linux-gnu/include/c++/11/aarch64-linux-gnu;/usr/aarch64-linux-gnu/include/c++/11/backward;/usr/lib/gcc-cross/aarch64-linux-gnu/11/include;/usr/aarch64-linux-gnu/include;/home/donii/sysroots/pi5/usr/include/aarch64-linux-gnu;/home/donii/sysroots/pi5/usr/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(aarch64-linux-gnu-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/donii/projects/cinepi_qt_preview/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_be487 && [1/2] Building CXX object CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++]
+  ignore line: [Target: aarch64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --without-target-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=aarch64-linux-gnu --program-prefix=aarch64-linux-gnu- --includedir=/usr/aarch64-linux-gnu/include --with-build-config=bootstrap-lto-lean --enable-link-serialization=2]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_be487.dir/']
+  ignore line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/cc1plus -quiet -v -imultiarch aarch64-linux-gnu -isysroot /home/donii/sysroots/pi5 -D_GNU_SOURCE /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_be487.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlittle-endian -mabi=lp64 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -o /tmp/ccHbGmin.s]
+  ignore line: [GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (aarch64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/home/donii/sysroots/pi5/usr/local/include/aarch64-linux-gnu"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc-cross/aarch64-linux-gnu/11/include-fixed"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11]
+  ignore line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/aarch64-linux-gnu]
+  ignore line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include/c++/11/backward]
+  ignore line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/include]
+  ignore line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/include]
+  ignore line: [ /home/donii/sysroots/pi5/usr/include/aarch64-linux-gnu]
+  ignore line: [ /home/donii/sysroots/pi5/usr/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (aarch64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: fbc882a9ce49446607e846bb30e5b470]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_be487.dir/']
+  ignore line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/bin/as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccHbGmin.s]
+  ignore line: [GNU assembler version 2.38 (aarch64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/bin/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/:/home/donii/sysroots/pi5/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/lib/../lib/:/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/usr/lib/../lib/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/:/home/donii/sysroots/pi5/lib/:/home/donii/sysroots/pi5/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.']
+  ignore line: [[2/2] Linking CXX executable cmTC_be487]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/aarch64-linux-gnu/11/lto-wrapper]
+  ignore line: [Target: aarch64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --without-target-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=aarch64-linux-gnu --program-prefix=aarch64-linux-gnu- --includedir=/usr/aarch64-linux-gnu/include --with-build-config=bootstrap-lto-lean --enable-link-serialization=2]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/bin/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc-cross/aarch64-linux-gnu/11/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/:/home/donii/sysroots/pi5/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/lib/../lib/:/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu/:/home/donii/sysroots/pi5/usr/lib/../lib/:/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/:/home/donii/sysroots/pi5/lib/:/home/donii/sysroots/pi5/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu' '-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu' '-v' '-o' 'cmTC_be487' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_be487.']
+  link line: [ /usr/lib/gcc-cross/aarch64-linux-gnu/11/collect2 -plugin /usr/lib/gcc-cross/aarch64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc-cross/aarch64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cci7mcil.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/donii/sysroots/pi5 --build-id --eh-frame-hdr --hash-style=gnu --as-needed -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_be487 /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/Scrt1.o /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crti.o /usr/lib/gcc-cross/aarch64-linux-gnu/11/crtbeginS.o -L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu -L/usr/lib/gcc-cross/aarch64-linux-gnu/11 -L/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib -L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/lib/../lib -L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -L/home/donii/sysroots/pi5/usr/lib/../lib -L/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib -L/home/donii/sysroots/pi5/lib -L/home/donii/sysroots/pi5/usr/lib -rpath-link /home/donii/sysroots/pi5/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu -rpath-link /home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc-cross/aarch64-linux-gnu/11/crtendS.o /usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crtn.o]
+    arg [/usr/lib/gcc-cross/aarch64-linux-gnu/11/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc-cross/aarch64-linux-gnu/11/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc-cross/aarch64-linux-gnu/11/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cci7mcil.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--sysroot=/home/donii/sysroots/pi5] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld-linux-aarch64.so.1] ==> ignore
+    arg [-X] ==> ignore
+    arg [-EL] ==> ignore
+    arg [-maarch64linux] ==> ignore
+    arg [--fix-cortex-a53-843419] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_be487] ==> ignore
+    arg [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/Scrt1.o] ==> obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/Scrt1.o]
+    arg [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crti.o] ==> obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crti.o]
+    arg [/usr/lib/gcc-cross/aarch64-linux-gnu/11/crtbeginS.o] ==> obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/crtbeginS.o]
+    arg [-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu]
+    arg [-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu]
+    arg [-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu]
+    arg [-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu]
+    arg [-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu]
+    arg [-L/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu]
+    arg [-L/usr/lib/gcc-cross/aarch64-linux-gnu/11] ==> dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11]
+    arg [-L/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib] ==> dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib]
+    arg [-L/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu]
+    arg [-L/home/donii/sysroots/pi5/lib/../lib] ==> dir [/home/donii/sysroots/pi5/lib/../lib]
+    arg [-L/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> dir [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu]
+    arg [-L/home/donii/sysroots/pi5/usr/lib/../lib] ==> dir [/home/donii/sysroots/pi5/usr/lib/../lib]
+    arg [-L/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib] ==> dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib]
+    arg [-L/home/donii/sysroots/pi5/lib] ==> dir [/home/donii/sysroots/pi5/lib]
+    arg [-L/home/donii/sysroots/pi5/usr/lib] ==> dir [/home/donii/sysroots/pi5/usr/lib]
+    arg [-rpath-link] ==> ignore
+    arg [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> ignore
+    arg [-rpath-link] ==> ignore
+    arg [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> ignore
+    arg [-rpath-link] ==> ignore
+    arg [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu] ==> ignore
+    arg [-rpath-link] ==> ignore
+    arg [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> ignore
+    arg [-rpath-link] ==> ignore
+    arg [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> ignore
+    arg [-rpath-link] ==> ignore
+    arg [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu] ==> ignore
+    arg [CMakeFiles/cmTC_be487.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/usr/lib/gcc-cross/aarch64-linux-gnu/11/crtendS.o] ==> obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/crtendS.o]
+    arg [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crtn.o] ==> obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crtn.o]
+  collapse obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/Scrt1.o] ==> [/usr/aarch64-linux-gnu/lib/Scrt1.o]
+  collapse obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crti.o] ==> [/usr/aarch64-linux-gnu/lib/crti.o]
+  collapse obj [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib/crtn.o] ==> [/usr/aarch64-linux-gnu/lib/crtn.o]
+  collapse library dir [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu]
+  collapse library dir [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu]
+  collapse library dir [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu]
+  collapse library dir [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu]
+  collapse library dir [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu]
+  collapse library dir [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu]
+  collapse library dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11] ==> [/usr/lib/gcc-cross/aarch64-linux-gnu/11]
+  collapse library dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib/../lib] ==> [/usr/aarch64-linux-gnu/lib]
+  collapse library dir [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu]
+  collapse library dir [/home/donii/sysroots/pi5/lib/../lib] ==> [/home/donii/sysroots/pi5/lib]
+  collapse library dir [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu] ==> [/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu]
+  collapse library dir [/home/donii/sysroots/pi5/usr/lib/../lib] ==> [/home/donii/sysroots/pi5/usr/lib]
+  collapse library dir [/usr/lib/gcc-cross/aarch64-linux-gnu/11/../../../../aarch64-linux-gnu/lib] ==> [/usr/aarch64-linux-gnu/lib]
+  collapse library dir [/home/donii/sysroots/pi5/lib] ==> [/home/donii/sysroots/pi5/lib]
+  collapse library dir [/home/donii/sysroots/pi5/usr/lib] ==> [/home/donii/sysroots/pi5/usr/lib]
+  implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+  implicit objs: [/usr/aarch64-linux-gnu/lib/Scrt1.o;/usr/aarch64-linux-gnu/lib/crti.o;/usr/lib/gcc-cross/aarch64-linux-gnu/11/crtbeginS.o;/usr/lib/gcc-cross/aarch64-linux-gnu/11/crtendS.o;/usr/aarch64-linux-gnu/lib/crtn.o]
+  implicit dirs: [/home/donii/sysroots/pi5/lib/aarch64-linux-gnu;/home/donii/sysroots/pi5/usr/lib/aarch64-linux-gnu;/home/donii/sysroots/pi5/usr/local/lib/aarch64-linux-gnu;/usr/lib/gcc-cross/aarch64-linux-gnu/11;/usr/aarch64-linux-gnu/lib;/home/donii/sysroots/pi5/lib;/home/donii/sysroots/pi5/usr/lib]
+  implicit fwks: []
+
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/donii/projects/cinepi_qt_preview/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_41fdf && [1/2] Building CXX object CMakeFiles/cmTC_41fdf.dir/CheckIncludeFile.cxx.o
+[2/2] Linking CXX executable cmTC_41fdf
+
+
+
+Performing C++ SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD succeeded with the following output:
+Change Dir: /home/donii/projects/cinepi_qt_preview/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_8896e && [1/2] Building CXX object CMakeFiles/cmTC_8896e.dir/src.cxx.o
+[2/2] Linking CXX executable cmTC_8896e
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Performing C++ SOURCE FILE Test HAVE_STDATOMIC succeeded with the following output:
+Change Dir: /home/donii/projects/cinepi_qt_preview/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_b3e65 && [1/2] Building CXX object CMakeFiles/cmTC_b3e65.dir/src.cxx.o
+[2/2] Linking CXX executable cmTC_b3e65
+
+
+Source file was:
+#include <atomic>
+#include <cstdint>
+
+int main(int, char **)
+{
+    volatile std::atomic<char>    size_1;
+    volatile std::atomic<short>   size_2;
+    volatile std::atomic<int>     size_4;
+    volatile std::atomic<int64_t> size_8;
+
+    ++size_1;
+    ++size_2;
+    ++size_4;
+    ++size_8;
+
+    (void)size_1.load(std::memory_order_relaxed);
+    (void)size_2.load(std::memory_order_relaxed);
+    (void)size_4.load(std::memory_order_relaxed);
+    (void)size_8.load(std::memory_order_relaxed);
+
+    return 0;
+}
