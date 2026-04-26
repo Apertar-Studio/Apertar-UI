@@ -158,3 +158,6 @@ The UI uses ApertarCore for:
 - Apertar-UI is designed around Raspberry Pi touchscreen operation
 - Sensor-specific capture rules belong in the backend, while the UI focuses on presentation and interaction
 - The application is intended to run with ApertarCore as its capture backend
+
+## Credit
+- Inspiration has been taken from Schoolpost's project cinepi-gui: https://github.com/cinepi/cinepi-gui
