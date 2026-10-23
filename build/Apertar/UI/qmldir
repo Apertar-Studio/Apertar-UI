@@ -1,0 +1,35 @@
+module Apertar.UI
+prefer :/
+Main 1.0 qml/Main.qml
+ExternalMonitorWindow 1.0 qml/ExternalMonitorWindow.qml
+CameraPage 1.0 qml/CameraPage.qml
+TimelapseIntervalPicker 1.0 qml/TimelapseIntervalPicker.qml
+TimelapseIntervalDialog 1.0 qml/TimelapseIntervalDialog.qml
+TimelapseIntervals 1.0 qml/TimelapseIntervals.js
+StillExposureOverlay 1.0 qml/StillExposureOverlay.qml
+ClipBrowserPage 1.0 qml/ClipBrowserPage.qml
+ClipPlayerPage 1.0 qml/ClipPlayerPage.qml
+TopDropdownStat 1.0 qml/TopDropdownStat.qml
+InfoLine 1.0 qml/InfoLine.qml
+InfoDataRow 1.0 qml/InfoDataRow.qml
+AudioLevelCard 1.0 qml/AudioLevelCard.qml
+AudioMeterOverlay 1.0 qml/AudioMeterOverlay.qml
+FalseColorLegend 1.0 qml/FalseColorLegend.qml
+HorizontalLevelOverlay 1.0 qml/HorizontalLevelOverlay.qml
+DisplayCalibrationPanel 1.0 qml/DisplayCalibrationPanel.qml
+RecordButton 1.0 qml/RecordButton.qml
+ClipBrowserButton 1.0 qml/ClipBrowserButton.qml
+StatusChip 1.0 qml/StatusChip.qml
+DroppedFrameWarning 1.0 qml/DroppedFrameWarning.qml
+SettingsPage 1.0 qml/SettingsPage.qml
+SettingsMenuItem 1.0 qml/SettingsMenuItem.qml
+MonitoringRow 1.0 qml/MonitoringRow.qml
+SettingsChoice 1.0 qml/SettingsChoice.qml
+InlineDropdownField 1.0 qml/InlineDropdownField.qml
+TogglePill 1.0 qml/TogglePill.qml
+SystemSectionCard 1.0 qml/SystemSectionCard.qml
+AdjustNumberTile 1.0 qml/AdjustNumberTile.qml
+ActionTile 1.0 qml/ActionTile.qml
+GyroBubbleLevel 1.0 qml/GyroBubbleLevel.qml
+GyroOrientationIndicator 1.0 qml/GyroOrientationIndicator.qml
+

@@ -4,14 +4,23 @@ Rectangle {
     id: root
 
     signal clicked()
+    property real backgroundOpacity: 1.0
+    property int buttonSize: 64
+    property int iconSize: 24
+    property bool strongBackground: false
+    property bool darkBackground: false
 
-    width: 64
-    height: 64
-    radius: 20
+    width: buttonSize
+    height: buttonSize
+    radius: Math.round(buttonSize * 0.3125)
 
-    color: root.enabled ? "#18ffffff" : "#0dffffff"
+    color: root.enabled
+           ? (root.darkBackground ? fadedBlack(0.34) : fadedWhite(root.strongBackground ? 0.14 : 0.09))
+           : (root.darkBackground ? fadedBlack(0.24) : fadedWhite(root.strongBackground ? 0.09 : 0.05))
     border.width: 1
-    border.color: root.enabled ? "#22ffffff" : "#14ffffff"
+    border.color: root.enabled
+                  ? fadedWhite(root.darkBackground ? 0.20 : 0.13)
+                  : fadedWhite(root.darkBackground ? 0.11 : 0.08)
     layer.enabled: true
     layer.smooth: false
     opacity: root.enabled ? 1.0 : 0.42
@@ -38,10 +47,20 @@ Rectangle {
         }
     }
 
+    function fadedWhite(baseAlpha) {
+        return Qt.rgba(1.0, 1.0, 1.0,
+                       Math.max(0.0, Math.min(1.0, baseAlpha * root.backgroundOpacity)))
+    }
+
+    function fadedBlack(baseAlpha) {
+        return Qt.rgba(0.0, 0.0, 0.0,
+                       Math.max(0.0, Math.min(1.0, baseAlpha * root.backgroundOpacity)))
+    }
+
     Image {
         anchors.centerIn: parent
-        width: 24
-        height: 24
+        width: root.iconSize
+        height: root.iconSize
         source: "qrc:/qml/icons/folder.png"
         fillMode: Image.PreserveAspectFit
         smooth: true

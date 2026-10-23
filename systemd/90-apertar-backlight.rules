@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="backlight", RUN+="/bin/chgrp video /sys%p/brightness", RUN+="/bin/chmod g+w /sys%p/brightness"
+ACTION=="add", SUBSYSTEM=="leds", KERNEL=="wittypi_led", RUN+="/bin/chgrp video /sys%p/brightness /sys%p/trigger", RUN+="/bin/chmod g+w /sys%p/brightness /sys%p/trigger"

@@ -1,0 +1,35 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/Main.qml</file>
+        <file>qml/ExternalMonitorWindow.qml</file>
+        <file>qml/CameraPage.qml</file>
+        <file>qml/TimelapseIntervalPicker.qml</file>
+        <file>qml/TimelapseIntervalDialog.qml</file>
+        <file>qml/TimelapseIntervals.js</file>
+        <file>qml/StillExposureOverlay.qml</file>
+        <file>qml/ClipBrowserPage.qml</file>
+        <file>qml/ClipPlayerPage.qml</file>
+        <file>qml/TopDropdownStat.qml</file>
+        <file>qml/InfoLine.qml</file>
+        <file>qml/InfoDataRow.qml</file>
+        <file>qml/AudioLevelCard.qml</file>
+        <file>qml/AudioMeterOverlay.qml</file>
+        <file>qml/FalseColorLegend.qml</file>
+        <file>qml/HorizontalLevelOverlay.qml</file>
+        <file>qml/DisplayCalibrationPanel.qml</file>
+        <file>qml/RecordButton.qml</file>
+        <file>qml/ClipBrowserButton.qml</file>
+        <file>qml/StatusChip.qml</file>
+        <file>qml/SettingsPage.qml</file>
+        <file>qml/SettingsMenuItem.qml</file>
+        <file>qml/MonitoringRow.qml</file>
+        <file>qml/SettingsChoice.qml</file>
+        <file>qml/InlineDropdownField.qml</file>
+        <file>qml/TogglePill.qml</file>
+        <file>qml/SystemSectionCard.qml</file>
+        <file>qml/AdjustNumberTile.qml</file>
+        <file>qml/ActionTile.qml</file>
+        <file>qml/GyroBubbleLevel.qml</file>
+        <file>qml/GyroOrientationIndicator.qml</file>
+    </qresource>
+</RCC>

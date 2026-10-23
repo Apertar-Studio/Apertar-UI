@@ -1,0 +1,3524 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 37,
+                        "durationMicroseconds": 160,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "selectedClipPaths",
+                        "line": 10
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 43,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot load property length from (component in /home/pi/ApertarUI/qml/ClipBrowserPage.qml)::selectedClipPaths with type QVariant.",
+                        "functionName": "selectionMode",
+                        "line": 13
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 52,
+                        "durationMicroseconds": 189,
+                        "errorMessage": "",
+                        "functionName": "landscapeCompactLayout",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 163,
+                        "errorMessage": "",
+                        "functionName": "mediumLandscapeLayout",
+                        "line": 15
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 50,
+                        "durationMicroseconds": 163,
+                        "errorMessage": "",
+                        "functionName": "largeLandscapeLayout",
+                        "line": 16
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 53,
+                        "durationMicroseconds": 258,
+                        "errorMessage": "",
+                        "functionName": "standardLandscapeLayout",
+                        "line": 17
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 52,
+                        "durationMicroseconds": 154,
+                        "errorMessage": "",
+                        "functionName": "regularLandscapeLayout",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 52,
+                        "durationMicroseconds": 148,
+                        "errorMessage": "",
+                        "functionName": "compactLandscapeLayout",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 44,
+                        "durationMicroseconds": 248,
+                        "errorMessage": "",
+                        "functionName": "gridColumnCount",
+                        "line": 22
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 42,
+                        "durationMicroseconds": 237,
+                        "errorMessage": "",
+                        "functionName": "gridColumnGap",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 605,
+                        "errorMessage": "",
+                        "functionName": "clipCellHeight",
+                        "line": 24
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 242,
+                        "errorMessage": "",
+                        "functionName": "clipCardMargin",
+                        "line": 25
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 238,
+                        "errorMessage": "",
+                        "functionName": "clipCardRadius",
+                        "line": 26
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 155,
+                        "errorMessage": "",
+                        "functionName": "clipThumbnailInset",
+                        "line": 27
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 235,
+                        "errorMessage": "",
+                        "functionName": "clipThumbnailTopMargin",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 48,
+                        "durationMicroseconds": 255,
+                        "errorMessage": "",
+                        "functionName": "clipThumbnailHeight",
+                        "line": 29
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "",
+                        "functionName": "clipThumbnailFooterGap",
+                        "line": 30
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 48,
+                        "durationMicroseconds": 245,
+                        "errorMessage": "",
+                        "functionName": "clipThumbnailRadius",
+                        "line": 31
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 49,
+                        "durationMicroseconds": 154,
+                        "errorMessage": "",
+                        "functionName": "clipFooterSideMargin",
+                        "line": 32
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 231,
+                        "errorMessage": "",
+                        "functionName": "clipFooterBottomMargin",
+                        "line": 33
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "",
+                        "functionName": "clipFooterHeight",
+                        "line": 34
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 227,
+                        "errorMessage": "",
+                        "functionName": "clipNameFontSize",
+                        "line": 35
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 230,
+                        "errorMessage": "",
+                        "functionName": "clipTypeFontSize",
+                        "line": 36
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 238,
+                        "errorMessage": "",
+                        "functionName": "clipDateFontSize",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 224,
+                        "errorMessage": "",
+                        "functionName": "clipDurationHeight",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 231,
+                        "errorMessage": "",
+                        "functionName": "clipDurationRadius",
+                        "line": 39
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 49,
+                        "durationMicroseconds": 227,
+                        "errorMessage": "",
+                        "functionName": "clipDurationFontSize",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "",
+                        "functionName": "clipSelectionBadgeSize",
+                        "line": 41
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 55,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "",
+                        "functionName": "clipSelectionBadgeFontSize",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 395,
+                        "errorMessage": "",
+                        "functionName": "browserTopButtonHeight",
+                        "line": 43
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 429,
+                        "errorMessage": "",
+                        "functionName": "browserTopButtonRadius",
+                        "line": 44
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 300,
+                        "errorMessage": "",
+                        "functionName": "browserTopButtonMargin",
+                        "line": 45
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 48,
+                        "durationMicroseconds": 376,
+                        "errorMessage": "",
+                        "functionName": "browserTopButtonGap",
+                        "line": 46
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 376,
+                        "errorMessage": "",
+                        "functionName": "browserBackButtonWidth",
+                        "line": 47
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 399,
+                        "errorMessage": "",
+                        "functionName": "browserModeButtonWidth",
+                        "line": 48
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 54,
+                        "durationMicroseconds": 386,
+                        "errorMessage": "",
+                        "functionName": "browserRefreshButtonWidth",
+                        "line": 49
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 181,
+                        "errorMessage": "",
+                        "functionName": "onVisibleChanged",
+                        "line": 61
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 25,
+                        "durationMicroseconds": 842,
+                        "errorMessage": "Cannot access value for name cdngThumbProvider",
+                        "functionName": "onStillModeChanged",
+                        "line": 63
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 169,
+                        "errorMessage": "",
+                        "functionName": "onEnabledChanged",
+                        "line": 69
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 905,
+                        "errorMessage": "Cannot access value for name cdngThumbProvider",
+                        "functionName": "updateBrowserActive",
+                        "line": 71
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "isClipSelected",
+                        "line": 83
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "selectOnlyClip",
+                        "line": 87
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "toggleClipSelection",
+                        "line": 91
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 137,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "clearSelection",
+                        "line": 103
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 611,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "removeSelectedClips",
+                        "line": 108
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 75,
+                        "errorMessage": "Cannot load property photoModeEnabled from (component in /home/pi/ApertarUI/qml/ClipBrowserPage.qml)::settingsState with type QVariant.",
+                        "functionName": "toggleCaptureMode",
+                        "line": 115
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 587,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "toggleSortMode",
+                        "line": 121
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "thumbnailHeightForCell",
+                        "line": 128
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "clipCellHeightForCell",
+                        "line": 133
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 197,
+                        "errorMessage": "",
+                        "functionName": "onCompleted",
+                        "line": 56
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 505,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "onDestruction",
+                        "line": 60
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 22,
+                        "durationMicroseconds": 185,
+                        "errorMessage": "Cannot access value for name cdngThumbProvider",
+                        "functionName": "onTriggered",
+                        "line": 150
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 107,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 157
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 18,
+                        "durationMicroseconds": 739,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 166
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 227,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 162
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 196,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 163
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 242,
+                        "errorMessage": "",
+                        "functionName": "leftMargin",
+                        "line": 164
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 645,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 165
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 146,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 175
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 263,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 171
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 543,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 172
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 133,
+                        "errorMessage": "",
+                        "functionName": "capitalization",
+                        "line": 173
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 19,
+                        "durationMicroseconds": 223,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 179
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 145,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 183
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 205,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 181
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 455,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 182
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 193
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 194
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 122,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 195
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 1187,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 196
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 201
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 192,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 189
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 182,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 190
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "rightMargin",
+                        "line": 191
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 192
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 582,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 200
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 59,
+                        "durationMicroseconds": 127,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 204
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 58,
+                        "durationMicroseconds": 164,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 208
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 58,
+                        "durationMicroseconds": 116,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 212
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 697,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 217
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 216
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 578,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 222
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 227
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 192,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 220
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 205,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 223
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 571,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 224
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 124,
+                        "errorMessage": "",
+                        "functionName": "capitalization",
+                        "line": 225
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 217,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 232
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 118,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 236
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 231
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 217,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 234
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 567,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 235
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 22,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "Cannot access value for name settingsState",
+                        "functionName": "enabled",
+                        "line": 243
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 189,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 244
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 87,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 242
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 254
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 255
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 126,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 256
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 594,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 257
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 287,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 260
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 194,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 250
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 189,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 251
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 137,
+                        "errorMessage": "",
+                        "functionName": "rightMargin",
+                        "line": 252
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 153,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 253
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 59,
+                        "durationMicroseconds": 133,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 263
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 58,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 267
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 651,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 272
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 271
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 621,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 275
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 607,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 276
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 279
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 216,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 282
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 205,
+                        "errorMessage": "",
+                        "functionName": "verticalCenter",
+                        "line": 277
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 445,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "text",
+                        "line": 286
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 604,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 287
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 290
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 213,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 288
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 572,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 289
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 22,
+                        "durationMicroseconds": 282,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "enabled",
+                        "line": 297
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 280,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "onClicked",
+                        "line": 298
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 91,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 296
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 191,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 311
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 312
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 245,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 313
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 757,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 314
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 255,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 317
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 211,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 307
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 193,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 308
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 259,
+                        "errorMessage": "",
+                        "functionName": "rightMargin",
+                        "line": 309
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 310
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 59,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 320
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 58,
+                        "durationMicroseconds": 122,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 324
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 769,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 329
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 328
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 336
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 246,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 334
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 556,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 335
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 224,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 340
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 123,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 344
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 210,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 342
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 556,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 343
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 405,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 351
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 89,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 350
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 373,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 369
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 250,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 362
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 184,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 363
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 179,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 364
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 181,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 365
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 240,
+                        "errorMessage": "",
+                        "functionName": "margins",
+                        "line": 366
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 625,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 367
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 225,
+                        "errorMessage": "",
+                        "functionName": "bottomMargin",
+                        "line": 368
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 231,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 377
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 375
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 418,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 386
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 205,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 383
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 384
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 177,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 385
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 452,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 394
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 194,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 391
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 392
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 178,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 393
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 496,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 403
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 197,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 399
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 182,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 400
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 492,
+                        "errorMessage": "",
+                        "functionName": "leftMargin",
+                        "line": 401
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 475,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 402
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 523,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 406
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 478,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 407
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 132,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 410
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 199,
+                        "errorMessage": "",
+                        "functionName": "verticalCenter",
+                        "line": 408
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 337,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 418
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 424
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 193,
+                        "errorMessage": "",
+                        "functionName": "verticalCenter",
+                        "line": 417
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 420
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 451,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 421
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 123,
+                        "errorMessage": "",
+                        "functionName": "capitalization",
+                        "line": 422
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 514,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 434
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 474,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 435
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 468,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 436
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 599,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 437
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 116,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 440
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 221,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 441
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 222,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 442
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 189,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 430
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 190,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 431
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 478,
+                        "errorMessage": "",
+                        "functionName": "rightMargin",
+                        "line": 432
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 484,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 433
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 63,
+                        "durationMicroseconds": 134,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 445
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 63,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 449
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 490,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 454
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 453
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 493,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 457
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 475,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 458
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 127,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 461
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 203,
+                        "errorMessage": "",
+                        "functionName": "verticalCenter",
+                        "line": 459
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 472
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 259,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 470
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 455,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 471
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 194,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 479
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 86,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 478
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 812,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 489
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 525,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 490
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 184,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 491
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 657,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 492
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 148,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 495
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 496
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 241,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 497
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 208,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 485
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 193,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 486
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 502,
+                        "errorMessage": "",
+                        "functionName": "rightMargin",
+                        "line": 487
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 473,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 488
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 63,
+                        "durationMicroseconds": 147,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 500
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 63,
+                        "durationMicroseconds": 122,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 504
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 468,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "text",
+                        "line": 510
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 517
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 99,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 509
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 243,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 512
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 123,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 513
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 479,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 514
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 119,
+                        "errorMessage": "",
+                        "functionName": "capitalization",
+                        "line": 515
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 437,
+                        "errorMessage": "",
+                        "functionName": "letterSpacing",
+                        "line": 516
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 26,
+                        "durationMicroseconds": 292,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "enabled",
+                        "line": 523
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 195,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 524
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 522
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 1053,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 534
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 473,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 537
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 237,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 538
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 256,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 530
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 193,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 531
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 546,
+                        "errorMessage": "",
+                        "functionName": "rightMargin",
+                        "line": 532
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 522,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 533
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "Cannot load property length from (component in /home/pi/ApertarUI/qml/ClipBrowserPage.qml)::selectedClipPaths with type QVariant.",
+                        "functionName": "text",
+                        "line": 545
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 159,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 552
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 544
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 235,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 547
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 129,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 548
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 465,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 549
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 123,
+                        "errorMessage": "",
+                        "functionName": "capitalization",
+                        "line": 550
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 492,
+                        "errorMessage": "",
+                        "functionName": "letterSpacing",
+                        "line": 551
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 19,
+                        "durationMicroseconds": 477,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "text",
+                        "line": 565
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 134,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 573
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 152,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 574
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 208,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 557
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 186,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 558
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 188,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 559
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 237,
+                        "errorMessage": "",
+                        "functionName": "leftMargin",
+                        "line": 560
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "",
+                        "functionName": "rightMargin",
+                        "line": 561
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 1356,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 562
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 254,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 571
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 461,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 572
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 574,
+                        "errorMessage": "",
+                        "functionName": "cellWidth",
+                        "line": 589
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 25,
+                        "durationMicroseconds": 296,
+                        "errorMessage": "Cannot generate efficient code for call to untyped JavaScript function",
+                        "functionName": "cellHeight",
+                        "line": 590
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 187,
+                        "errorMessage": "",
+                        "functionName": "cacheBuffer",
+                        "line": 591
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 20,
+                        "durationMicroseconds": 670,
+                        "errorMessage": "Cannot access value for name clipModel",
+                        "functionName": "model",
+                        "line": 592
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 137,
+                        "errorMessage": "",
+                        "functionName": "boundsBehavior",
+                        "line": 594
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 232,
+                        "errorMessage": "",
+                        "functionName": "bottomMargin",
+                        "line": 595
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 219,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 579
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 183,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 580
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 184,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 581
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 182,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 582
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 1025,
+                        "errorMessage": "",
+                        "functionName": "topMargin",
+                        "line": 585
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 227,
+                        "errorMessage": "",
+                        "functionName": "bottomMargin",
+                        "line": 588
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 25,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on policy.",
+                        "functionName": "policy",
+                        "line": 599
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "Cannot access value for name clipGrid",
+                        "functionName": "width",
+                        "line": 616
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 25,
+                        "durationMicroseconds": 29,
+                        "errorMessage": "Cannot access value for name clipGrid",
+                        "functionName": "height",
+                        "line": 617
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 29,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "radius",
+                        "line": 622
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 623
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 245,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 629
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 620
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "margins",
+                        "line": 621
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 35,
+                        "durationMicroseconds": 76,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 626
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 71,
+                        "durationMicroseconds": 132,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 632
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 70,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 636
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 70,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 639
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 33,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "height",
+                        "line": 650
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 33,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "radius",
+                        "line": 651
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 653
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 206,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 644
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 40,
+                        "durationMicroseconds": 185,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 645
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 179,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 646
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 45,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "leftMargin",
+                        "line": 647
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "rightMargin",
+                        "line": 648
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 44,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "topMargin",
+                        "line": 649
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 662
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 37,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "source",
+                        "line": 668
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 94,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 661
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 605,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 666
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 48,
+                        "durationMicroseconds": 539,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 667
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 673
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 672
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 273,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 678
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 685
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 677
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 42,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "Cannot access value for name interMedium",
+                        "functionName": "family",
+                        "line": 681
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 45,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "pixelSize",
+                        "line": 682
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 50,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "",
+                        "functionName": "capitalization",
+                        "line": 683
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 37,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "height",
+                        "line": 693
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 37,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "radius",
+                        "line": 694
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 81,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "width",
+                        "line": 697
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 215,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 689
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 185,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 690
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 49,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "leftMargin",
+                        "line": 691
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 51,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "bottomMargin",
+                        "line": 692
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "Cannot access value for name durationText",
+                        "functionName": "text",
+                        "line": 702
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 130,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 709
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 701
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "Cannot access value for name interBold",
+                        "functionName": "family",
+                        "line": 704
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 46,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 705
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 49,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "pixelSize",
+                        "line": 706
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 54,
+                        "durationMicroseconds": 114,
+                        "errorMessage": "",
+                        "functionName": "capitalization",
+                        "line": 707
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "width",
+                        "line": 718
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 37,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "height",
+                        "line": 719
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 187,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 720
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 721
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "visible",
+                        "line": 723
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 216,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 714
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 42,
+                        "durationMicroseconds": 189,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 715
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 49,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "leftMargin",
+                        "line": 716
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 48,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "topMargin",
+                        "line": 717
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 43,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 722
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 65,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "text",
+                        "line": 727
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 731
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 51,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 726
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "Cannot access value for name interBold",
+                        "functionName": "family",
+                        "line": 729
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 49,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "pixelSize",
+                        "line": 730
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 33,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "height",
+                        "line": 744
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 220,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 738
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 40,
+                        "durationMicroseconds": 185,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 739
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 740
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 45,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "leftMargin",
+                        "line": 741
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "rightMargin",
+                        "line": 742
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 47,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "bottomMargin",
+                        "line": 743
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "spacing",
+                        "line": 748
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 100,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 747
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "Cannot access value for name name",
+                        "functionName": "text",
+                        "line": 751
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 40,
+                        "durationMicroseconds": 135,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 755
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 113,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 756
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "Cannot access value for name interBold",
+                        "functionName": "family",
+                        "line": 753
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 49,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "pixelSize",
+                        "line": 754
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 65,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "text",
+                        "line": 760
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 130,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 765
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "Cannot access value for name interRegular",
+                        "functionName": "family",
+                        "line": 763
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 49,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "pixelSize",
+                        "line": 764
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "Cannot access value for name shotDate",
+                        "functionName": "text",
+                        "line": 769
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 40,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 774
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 775
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "Cannot access value for name interRegular",
+                        "functionName": "family",
+                        "line": 771
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 49,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "pixelSize",
+                        "line": 772
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 36,
+                        "durationMicroseconds": 225,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 783
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 41,
+                        "durationMicroseconds": 73,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "onPressAndHold",
+                        "line": 784
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "onClicked",
+                        "line": 791
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 95,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 782
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 18,
+                        "durationMicroseconds": 143,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 811
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 18,
+                        "durationMicroseconds": 249,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 812
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 809
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 59,
+                        "durationMicroseconds": 135,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 816
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 200,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 821
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 820
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 266,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 826
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 245,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 827
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 232,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 830
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 18,
+                        "durationMicroseconds": 121,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 834
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 18,
+                        "durationMicroseconds": 232,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 835
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 227,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 836
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 101,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 828
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 241,
+                        "errorMessage": "",
+                        "functionName": "verticalCenterOffset",
+                        "line": 829
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 59,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 840
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 59,
+                        "durationMicroseconds": 124,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 844
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 256,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 850
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 101,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 848
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 237,
+                        "errorMessage": "",
+                        "functionName": "margins",
+                        "line": 849
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 236,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 853
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 243,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 856
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 222,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 857
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 223,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 858
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 241,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 864
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 865
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 867
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 863
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 882
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 254,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 880
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 211,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 881
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 890
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 237,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 891
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 121,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 892
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 225,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 888
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 207,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 889
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 898
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 241,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 899
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 225,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 900
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 250,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 908
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 109,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 906
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 248,
+                        "errorMessage": "",
+                        "functionName": "margins",
+                        "line": 907
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 31,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "Cannot load property length from (component in /home/pi/ApertarUI/qml/ClipBrowserPage.qml)::selectedClipPaths with type QVariant.",
+                        "functionName": "text",
+                        "line": 911
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 164,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 915
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 124,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 916
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 292,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 913
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 217,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 914
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 31,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "Cannot load property length from (component in /home/pi/ApertarUI/qml/ClipBrowserPage.qml)::selectedClipPaths with type QVariant.",
+                        "functionName": "text",
+                        "line": 920
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 145,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 924
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 126,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 925
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 263,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 922
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 234,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 923
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 31,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "Cannot load property length from (component in /home/pi/ApertarUI/qml/ClipBrowserPage.qml)::selectedClipPaths with type QVariant.",
+                        "functionName": "text",
+                        "line": 929
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 933
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 251,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 931
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 219,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 932
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 246,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 940
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 258,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 944
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 266,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 947
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 234,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 948
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 225,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 949
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 608,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 950
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 233,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 953
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 71,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 956
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 147,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 965
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 43,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 960
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 254,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 963
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 219,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 964
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 36,
+                        "durationMicroseconds": 220,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 971
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 113,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 970
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 287,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 976
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 235,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 977
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 243,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 978
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 637,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 979
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 247,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 982
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 71,
+                        "durationMicroseconds": 191,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 985
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 70,
+                        "durationMicroseconds": 134,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 989
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 251,
+                        "errorMessage": "",
+                        "functionName": "spacing",
+                        "line": 994
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 94,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 993
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 36,
+                        "durationMicroseconds": 247,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 997
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 37,
+                        "durationMicroseconds": 248,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 998
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 1001
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 53,
+                        "durationMicroseconds": 209,
+                        "errorMessage": "",
+                        "functionName": "verticalCenter",
+                        "line": 999
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 41,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 1012
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 42,
+                        "durationMicroseconds": 252,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 1010
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 210,
+                        "errorMessage": "",
+                        "functionName": "pixelSize",
+                        "line": 1011
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 36,
+                        "durationMicroseconds": 198,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 1019
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 1018
+                    }
+                ],
+                "filepath": "/home/pi/ApertarUI/qml/ClipBrowserPage.qml"
+            }
+        ],
+        "moduleId": "Apertar.UI(ApertarUI)"
+    }
+]

@@ -1,45 +1,20 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/Main.qml</file>
-        <file>qml/CameraPage.qml</file>
-        <file>qml/ClipBrowserPage.qml</file>
-        <file>qml/ClipPlayerPage.qml</file>
-        <file>qml/TopDropdownStat.qml</file>
-		<file>qml/InfoLine.qml</file>
-		<file>qml/InfoDataRow.qml</file>
-		<file>qml/AudioLevelCard.qml</file>
-		<file>qml/AudioMeterOverlay.qml</file>
-		<file>qml/FalseColorLegend.qml</file>
-		<file>qml/RecordButton.qml</file>
-        <file>qml/ClipBrowserButton.qml</file>
-        <file>qml/StatusChip.qml</file>
-		<file>qml/fonts/Gotham/Gotham-Thin.ttf</file>
-		<file>qml/fonts/Gotham/Gotham-Light.ttf</file>
-		<file>qml/fonts/Gotham/Gotham-Medium.ttf</file>
         <file>qml/fonts/Gotham/Gotham-Bold.ttf</file>
-        <file>qml/fonts/Gotham/Gotham-Black.ttf</file>
-		<file>qml/fonts/Inter/Inter-Thin.ttf</file>
 		<file>qml/fonts/Inter/Inter-Light.ttf</file>
 		<file>qml/fonts/Inter/Inter-Regular.ttf</file>
 		<file>qml/fonts/Inter/Inter-Medium.ttf</file>
 		<file>qml/fonts/Inter/Inter-Bold.ttf</file>
-		<file>qml/fonts/Inter/Inter-Black.ttf</file>
 		<file>qml/icons/camera.png</file>
 		<file>qml/icons/resolution.png</file>
 		<file>qml/icons/timecode.png</file>
-        <file>qml/icons/media.png</file>
+		<file>qml/icons/timelapse.png</file>
+		<file>qml/icons/gyro.png</file>
+		<file>qml/icons/config.png</file>
+    <file>qml/icons/media.png</file>
         <file>qml/icons/cpu.png</file>
         <file>qml/icons/power.png</file>
 		<file>qml/icons/settings.png</file>
-		<file>qml/SettingsPage.qml</file>
-		<file>qml/SettingsMenuItem.qml</file>
-		<file>qml/MonitoringRow.qml</file>
-		<file>qml/SettingsChoice.qml</file>
-		<file>qml/InlineDropdownField.qml</file>
-		<file>qml/TogglePill.qml</file>	
-		<file>qml/SystemSectionCard.qml</file>
-		<file>qml/AdjustNumberTile.qml</file>
-		<file>qml/ActionTile.qml</file>
 		<file>qml/icons/monitoring.png</file>
 		<file>qml/icons/record.png</file>
 		<file>qml/icons/system.png</file>
@@ -61,6 +36,19 @@
 		<file>qml/icons/system-drive.png</file>
 		<file>qml/icons/audio.png</file>
 		<file>qml/icons/levels.png</file>
+		<file>qml/icons/wifi.png</file>
+		<file>qml/icons/wifioff.png</file>
+		<file>qml/icons/favorites.png</file>
+		<file>qml/icons/center-marker.png</file>
+		<file>qml/icons/autofocus.png</file>
+		<file>qml/icons/focuspeaking.png</file>
+		<file>qml/icons/false-color.png</file>
+		<file>qml/icons/grayscale.png</file>
+			<file>qml/icons/guides.png</file>
+			<file>qml/icons/hotspot.png</file>
+			<file>qml/icons/orientation.png</file>
+			<file>qml/icons/smpte.png</file>
+			<file>qml/icons/zebra.png</file>
 		<file>qml/icons/microphone.png</file>
 		<file>qml/icons/microphone-muted.png</file>
 		<file>qml/icons/headphones.png</file>

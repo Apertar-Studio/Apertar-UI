@@ -12,6 +12,7 @@ struct RawFrame
     };
 
     bool valid = false;
+    bool monochrome = false;
     int width = 0;
     int height = 0;
     int bitsPerSample = 0;
@@ -24,6 +25,24 @@ struct RawFrame
     float analogBalance[3] = {1.0f, 1.0f, 1.0f};
     bool hasColorMatrix1 = false;
     float colorMatrix1[9] = {
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    };
+    bool hasColorMatrix2 = false;
+    float colorMatrix2[9] = {
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    };
+    bool hasForwardMatrix1 = false;
+    float forwardMatrix1[9] = {
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    };
+    bool hasForwardMatrix2 = false;
+    float forwardMatrix2[9] = {
         1.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f,
         0.0f, 0.0f, 1.0f

@@ -2,6 +2,7 @@
 
 #include <QQuickItem>
 #include <QString>
+#include <QVariantMap>
 
 
 class CameraPreviewItem : public QQuickItem
@@ -17,10 +18,16 @@ class CameraPreviewItem : public QQuickItem
     Q_PROPERTY(float focusPeakingThreshold READ focusPeakingThreshold WRITE setFocusPeakingThreshold NOTIFY focusPeakingThresholdChanged)
     Q_PROPERTY(QString focusPeakingColor READ focusPeakingColor WRITE setFocusPeakingColor NOTIFY focusPeakingColorChanged)
     Q_PROPERTY(bool grayscaleEnabled READ grayscaleEnabled WRITE setGrayscaleEnabled NOTIFY grayscaleEnabledChanged)
+    Q_PROPERTY(bool smpteEnabled READ smpteEnabled WRITE setSmpteEnabled NOTIFY smpteEnabledChanged)
     Q_PROPERTY(bool anamorphicDesqueezeEnabled READ anamorphicDesqueezeEnabled WRITE setAnamorphicDesqueezeEnabled NOTIFY anamorphicDesqueezeEnabledChanged)
     Q_PROPERTY(float anamorphicDesqueezeRatio READ anamorphicDesqueezeRatio WRITE setAnamorphicDesqueezeRatio NOTIFY anamorphicDesqueezeRatioChanged)
     Q_PROPERTY(bool falseColorEnabled READ falseColorEnabled WRITE setFalseColorEnabled NOTIFY falseColorEnabledChanged)
     Q_PROPERTY(int falseColorMode READ falseColorMode WRITE setFalseColorMode NOTIFY falseColorModeChanged)
+    Q_PROPERTY(bool lutPreviewEnabled READ lutPreviewEnabled WRITE setLutPreviewEnabled NOTIFY lutPreviewEnabledChanged)
+    Q_PROPERTY(QString lutPreviewFile READ lutPreviewFile WRITE setLutPreviewFile NOTIFY lutPreviewFileChanged)
+    Q_PROPERTY(QVariantMap exposureReference READ exposureReference WRITE setExposureReference NOTIFY exposureReferenceChanged)
+    Q_PROPERTY(int displayRotation READ displayRotation WRITE setDisplayRotation NOTIFY displayRotationChanged)
+    Q_PROPERTY(float previewAspectRatio READ previewAspectRatio WRITE setPreviewAspectRatio NOTIFY previewAspectRatioChanged)
 
 public:
     explicit CameraPreviewItem(QQuickItem *parent = nullptr);
@@ -53,6 +60,9 @@ public:
     bool grayscaleEnabled() const { return m_grayscaleEnabled; }
     void setGrayscaleEnabled(bool value);
 
+    bool smpteEnabled() const { return m_smpteEnabled; }
+    void setSmpteEnabled(bool value);
+
     bool anamorphicDesqueezeEnabled() const { return m_anamorphicDesqueezeEnabled; }
     void setAnamorphicDesqueezeEnabled(bool value);
 
@@ -64,6 +74,20 @@ public:
 
     int falseColorMode() const { return m_falseColorMode; }
     void setFalseColorMode(int value);
+
+    bool lutPreviewEnabled() const { return m_lutPreviewEnabled; }
+    void setLutPreviewEnabled(bool value);
+
+    QString lutPreviewFile() const { return m_lutPreviewFile; }
+    void setLutPreviewFile(const QString &value);
+    QVariantMap exposureReference() const { return m_exposureReference; }
+    void setExposureReference(const QVariantMap &value);
+
+    int displayRotation() const { return m_displayRotation; }
+    void setDisplayRotation(int value);
+
+    float previewAspectRatio() const { return m_previewAspectRatio; }
+    void setPreviewAspectRatio(float value);
 
 signals:
     void bridgeChanged();
@@ -83,11 +107,17 @@ signals:
     void focusPeakingColorChanged();
 
     void grayscaleEnabledChanged();
+    void smpteEnabledChanged();
     void anamorphicDesqueezeEnabledChanged();
     void anamorphicDesqueezeRatioChanged();
 
     void falseColorEnabledChanged();
     void falseColorModeChanged();
+    void lutPreviewEnabledChanged();
+    void lutPreviewFileChanged();
+    void exposureReferenceChanged();
+    void displayRotationChanged();
+    void previewAspectRatioChanged();
 
 protected:
     void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
@@ -109,10 +139,16 @@ private:
     QString m_focusPeakingColor = "Red";
 
     bool m_grayscaleEnabled = false;
+    bool m_smpteEnabled = false;
     bool m_anamorphicDesqueezeEnabled = false;
     float m_anamorphicDesqueezeRatio = 1.33f;
 
     bool m_falseColorEnabled = false;
     int m_falseColorMode = 0;
+    bool m_lutPreviewEnabled = false;
+    QString m_lutPreviewFile;
+    QVariantMap m_exposureReference;
+    int m_displayRotation = 0;
+    float m_previewAspectRatio = 0.0f;
 
 };

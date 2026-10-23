@@ -1,0 +1,37 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="qml/Main.qml">/home/pi/ApertarUI/qml/Main.qml</file>
+    <file alias="qml/ExternalMonitorWindow.qml">/home/pi/ApertarUI/qml/ExternalMonitorWindow.qml</file>
+    <file alias="qml/CameraPage.qml">/home/pi/ApertarUI/qml/CameraPage.qml</file>
+    <file alias="qml/TimelapseIntervalPicker.qml">/home/pi/ApertarUI/qml/TimelapseIntervalPicker.qml</file>
+    <file alias="qml/TimelapseIntervalDialog.qml">/home/pi/ApertarUI/qml/TimelapseIntervalDialog.qml</file>
+    <file alias="qml/TimelapseIntervals.js">/home/pi/ApertarUI/qml/TimelapseIntervals.js</file>
+    <file alias="qml/StillExposureOverlay.qml">/home/pi/ApertarUI/qml/StillExposureOverlay.qml</file>
+    <file alias="qml/ClipBrowserPage.qml">/home/pi/ApertarUI/qml/ClipBrowserPage.qml</file>
+    <file alias="qml/ClipPlayerPage.qml">/home/pi/ApertarUI/qml/ClipPlayerPage.qml</file>
+    <file alias="qml/TopDropdownStat.qml">/home/pi/ApertarUI/qml/TopDropdownStat.qml</file>
+    <file alias="qml/InfoLine.qml">/home/pi/ApertarUI/qml/InfoLine.qml</file>
+    <file alias="qml/InfoDataRow.qml">/home/pi/ApertarUI/qml/InfoDataRow.qml</file>
+    <file alias="qml/AudioLevelCard.qml">/home/pi/ApertarUI/qml/AudioLevelCard.qml</file>
+    <file alias="qml/AudioMeterOverlay.qml">/home/pi/ApertarUI/qml/AudioMeterOverlay.qml</file>
+    <file alias="qml/FalseColorLegend.qml">/home/pi/ApertarUI/qml/FalseColorLegend.qml</file>
+    <file alias="qml/HorizontalLevelOverlay.qml">/home/pi/ApertarUI/qml/HorizontalLevelOverlay.qml</file>
+    <file alias="qml/DisplayCalibrationPanel.qml">/home/pi/ApertarUI/qml/DisplayCalibrationPanel.qml</file>
+    <file alias="qml/RecordButton.qml">/home/pi/ApertarUI/qml/RecordButton.qml</file>
+    <file alias="qml/ClipBrowserButton.qml">/home/pi/ApertarUI/qml/ClipBrowserButton.qml</file>
+    <file alias="qml/StatusChip.qml">/home/pi/ApertarUI/qml/StatusChip.qml</file>
+    <file alias="qml/DroppedFrameWarning.qml">/home/pi/ApertarUI/qml/DroppedFrameWarning.qml</file>
+    <file alias="qml/SettingsPage.qml">/home/pi/ApertarUI/qml/SettingsPage.qml</file>
+    <file alias="qml/SettingsMenuItem.qml">/home/pi/ApertarUI/qml/SettingsMenuItem.qml</file>
+    <file alias="qml/MonitoringRow.qml">/home/pi/ApertarUI/qml/MonitoringRow.qml</file>
+    <file alias="qml/SettingsChoice.qml">/home/pi/ApertarUI/qml/SettingsChoice.qml</file>
+    <file alias="qml/InlineDropdownField.qml">/home/pi/ApertarUI/qml/InlineDropdownField.qml</file>
+    <file alias="qml/TogglePill.qml">/home/pi/ApertarUI/qml/TogglePill.qml</file>
+    <file alias="qml/SystemSectionCard.qml">/home/pi/ApertarUI/qml/SystemSectionCard.qml</file>
+    <file alias="qml/AdjustNumberTile.qml">/home/pi/ApertarUI/qml/AdjustNumberTile.qml</file>
+    <file alias="qml/ActionTile.qml">/home/pi/ApertarUI/qml/ActionTile.qml</file>
+    <file alias="qml/GyroBubbleLevel.qml">/home/pi/ApertarUI/qml/GyroBubbleLevel.qml</file>
+    <file alias="qml/GyroOrientationIndicator.qml">/home/pi/ApertarUI/qml/GyroOrientationIndicator.qml</file>
+  </qresource>
+</RCC>
+

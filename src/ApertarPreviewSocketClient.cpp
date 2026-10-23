@@ -4,6 +4,7 @@
 #include <cerrno>
 #include <cstring>
 #include <fcntl.h>
+#include <QDebug>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
@@ -71,6 +72,12 @@ bool ApertarPreviewSocketClient::connectToCore(const QString &socketPath)
 
     setConnected(true);
     setStatusText(QStringLiteral("Connected to Apertar-Core preview socket"));
+    if (!requestPreviewSubscription()) {
+        QTimer::singleShot(100, this, [this]() {
+            if (m_socketFd >= 0)
+                requestPreviewSubscription();
+        });
+    }
     return true;
 }
 
@@ -95,6 +102,7 @@ void ApertarPreviewSocketClient::closeSocket()
     }
 
     closePreviewFd();
+    closeRegisteredPreviewBuffers();
     closePendingFds();
     m_readBuffer.clear();
     setConnected(false);
@@ -119,7 +127,7 @@ void ApertarPreviewSocketClient::scheduleReconnect()
 
 std::optional<PreviewFrameInfo> ApertarPreviewSocketClient::currentPreviewFrame() const
 {
-    if (m_previewFd < 0 || m_latestFrame.width == 0 || m_latestFrame.height == 0)
+    if (m_latestFrame.fdIsp < 0 || m_latestFrame.width == 0 || m_latestFrame.height == 0)
         return std::nullopt;
     return m_latestFrame;
 }
@@ -131,11 +139,37 @@ int ApertarPreviewSocketClient::duplicateProducerFd(int procid, int fd) const
     return ::dup(fd);
 }
 
+bool ApertarPreviewSocketClient::requestPreviewSubscription()
+{
+    if (m_socketFd < 0)
+        return false;
+
+    QByteArray payload = QByteArrayLiteral("{\"cmd\":\"preview_subscribe\",\"id\":0}\n");
+    const char *data = payload.constData();
+    size_t remaining = static_cast<size_t>(payload.size());
+    while (remaining > 0) {
+        const ssize_t written = ::send(m_socketFd, data, remaining, MSG_NOSIGNAL);
+        if (written < 0) {
+            if (errno == EAGAIN || errno == EWOULDBLOCK)
+                return false;
+            return false;
+        }
+        if (written == 0)
+            return false;
+
+        data += written;
+        remaining -= static_cast<size_t>(written);
+    }
+
+    return true;
+}
+
 void ApertarPreviewSocketClient::readAvailableMessages()
 {
     while (m_socketFd >= 0) {
+        static constexpr int kMaxAttachedFds = 3;
         std::array<char, 8192> buffer{};
-        std::array<char, CMSG_SPACE(sizeof(int))> control{};
+        std::array<char, CMSG_SPACE(sizeof(int) * kMaxAttachedFds)> control{};
 
         iovec iov{};
         iov.iov_base = buffer.data();
@@ -204,12 +238,30 @@ void ApertarPreviewSocketClient::processReadBuffer()
 
 QVector<int> ApertarPreviewSocketClient::takePendingFdsForMessage(const QByteArray &message)
 {
-    if (!message.contains("\"preview_frame\"") || m_pendingFds.isEmpty())
+    if (m_pendingFds.isEmpty())
         return {};
 
-    qlonglong requestedCount = 1;
-    jsonIntegerValue(message, "plane_count", &requestedCount);
-    requestedCount = qBound(qlonglong(1), requestedCount, qlonglong(3));
+    QByteArray event;
+    if (!jsonStringValue(message, "event", &event))
+        return {};
+
+    qlonglong requestedCount = 0;
+    if (event == "preview_buffer") {
+        requestedCount = 1;
+        jsonIntegerValue(message, "plane_count", &requestedCount);
+        requestedCount = qBound(qlonglong(1), requestedCount, qlonglong(3));
+    } else if (event == "preview_frame") {
+        if (message.contains("\"fd_attached\":true")) {
+            requestedCount = 1;
+            jsonIntegerValue(message, "plane_count", &requestedCount);
+            requestedCount = qBound(qlonglong(1), requestedCount, qlonglong(3));
+        }
+    } else {
+        return {};
+    }
+
+    if (requestedCount <= 0)
+        return {};
 
     QVector<int> fds;
     fds.reserve(static_cast<int>(requestedCount));
@@ -235,9 +287,9 @@ void ApertarPreviewSocketClient::setStatusText(const QString &text)
     emit statusTextChanged();
 }
 
-void ApertarPreviewSocketClient::closePreviewFd()
+void ApertarPreviewSocketClient::releaseOwnedPreviewFds()
 {
-    if (m_latestFrame.planeCount > 0) {
+    if (m_latestFrame.ownsPlaneFds && m_latestFrame.planeCount > 0) {
         for (int i = 0; i < m_latestFrame.planeCount && i < 3; ++i) {
             if (m_latestFrame.planeFds[i] >= 0)
                 ::close(m_latestFrame.planeFds[i]);
@@ -247,7 +299,26 @@ void ApertarPreviewSocketClient::closePreviewFd()
     }
 
     m_previewFd = -1;
+}
+
+void ApertarPreviewSocketClient::closePreviewFd()
+{
+    releaseOwnedPreviewFds();
     m_latestFrame = PreviewFrameInfo{};
+}
+
+void ApertarPreviewSocketClient::closeRegisteredPreviewBuffers()
+{
+    for (auto &[slotIndex, buffer] : m_registeredPreviewBuffers) {
+        (void)slotIndex;
+        if (buffer.fd >= 0)
+            ::close(buffer.fd);
+        for (int fd : buffer.planeFds) {
+            if (fd >= 0 && fd != buffer.fd)
+                ::close(fd);
+        }
+    }
+    m_registeredPreviewBuffers.clear();
 }
 
 void ApertarPreviewSocketClient::handleMessage(const QByteArray &message, QVector<int> attachedFds)
@@ -266,6 +337,11 @@ void ApertarPreviewSocketClient::handleMessage(const QByteArray &message, QVecto
         return;
     }
 
+    if (event == "preview_buffer") {
+        handlePreviewBuffer(message, std::move(attachedFds));
+        return;
+    }
+
     if (event == "preview_frame") {
         handlePreviewFrame(message, std::move(attachedFds));
         return;
@@ -274,7 +350,7 @@ void ApertarPreviewSocketClient::handleMessage(const QByteArray &message, QVecto
     closeAttachedFds();
 }
 
-void ApertarPreviewSocketClient::handlePreviewFrame(const QByteArray &message, QVector<int> attachedFds)
+void ApertarPreviewSocketClient::handlePreviewBuffer(const QByteArray &message, QVector<int> attachedFds)
 {
     auto closeAttachedFds = [&attachedFds]() {
         for (int fd : attachedFds) {
@@ -287,20 +363,166 @@ void ApertarPreviewSocketClient::handlePreviewFrame(const QByteArray &message, Q
     if (attachedFds.isEmpty())
         return;
 
-    qlonglong frameId = 0;
+    qlonglong slotIndex = 0;
     qlonglong width = 0;
     qlonglong height = 0;
     qlonglong stride = 0;
     qlonglong captureWidth = 0;
     qlonglong captureHeight = 0;
     qlonglong planeCount = 1;
-    if (!jsonIntegerValue(message, "frame_id", &frameId) ||
+    if (!jsonIntegerValue(message, "slot", &slotIndex) ||
         !jsonIntegerValue(message, "width", &width) ||
         !jsonIntegerValue(message, "height", &height) ||
         !jsonIntegerValue(message, "stride", &stride)) {
         closeAttachedFds();
         return;
     }
+
+    jsonIntegerValue(message, "capture_width", &captureWidth);
+    jsonIntegerValue(message, "capture_height", &captureHeight);
+    jsonIntegerValue(message, "layout_plane_count", &planeCount);
+    planeCount = qBound(qlonglong(1), planeCount, qlonglong(3));
+
+    RegisteredPreviewBuffer buffer;
+    buffer.fd = attachedFds.front();
+    buffer.width = static_cast<unsigned int>(qMax<qlonglong>(0, width));
+    buffer.height = static_cast<unsigned int>(qMax<qlonglong>(0, height));
+    buffer.stride = static_cast<unsigned int>(qMax<qlonglong>(0, stride));
+    buffer.captureWidth = static_cast<unsigned int>(qMax<qlonglong>(0, captureWidth));
+    buffer.captureHeight = static_cast<unsigned int>(qMax<qlonglong>(0, captureHeight));
+    buffer.planeCount = static_cast<int>(planeCount);
+    for (int i = 0; i < buffer.planeCount && i < attachedFds.size(); ++i)
+        buffer.planeFds[i] = attachedFds.at(i);
+    for (int i = 0; i < buffer.planeCount; ++i) {
+        qlonglong offset = 0;
+        qlonglong pitch = 0;
+        jsonIntegerValue(message, QByteArray("plane") + QByteArray::number(i) + "_offset", &offset);
+        jsonIntegerValue(message, QByteArray("plane") + QByteArray::number(i) + "_pitch", &pitch);
+        buffer.planeOffsets[i] = static_cast<unsigned int>(qMax<qlonglong>(0, offset));
+        buffer.planePitches[i] = static_cast<unsigned int>(qMax<qlonglong>(0, pitch));
+    }
+
+    const int attachedFdCount = attachedFds.size();
+    for (int i = buffer.planeCount; i < attachedFdCount; ++i) {
+        if (attachedFds.at(i) >= 0)
+            ::close(attachedFds.at(i));
+    }
+    attachedFds.clear();
+
+    const unsigned int slot = static_cast<unsigned int>(qMax<qlonglong>(0, slotIndex));
+    auto existing = m_registeredPreviewBuffers.find(slot);
+    if (existing != m_registeredPreviewBuffers.end()) {
+        if (existing->second.fd >= 0)
+            ::close(existing->second.fd);
+        for (int fd : existing->second.planeFds) {
+            if (fd >= 0 && fd != existing->second.fd)
+                ::close(fd);
+        }
+    }
+    m_registeredPreviewBuffers[slot] = buffer;
+
+    if (!m_loggedPreviewBuffer) {
+        qInfo() << "Apertar preview buffer registered:"
+                << buffer.width << "x" << buffer.height
+                << "stride" << buffer.stride
+                << "slot" << slot
+                << "layout planes" << buffer.planeCount
+                << "attached fds" << qMax(1, attachedFdCount);
+        m_loggedPreviewBuffer = true;
+    }
+
+    if (m_latestFrame.fdIsp >= 0 && m_latestFrame.slotIndex == slot) {
+        m_latestFrame.fdIsp = buffer.fd;
+        m_latestFrame.width = buffer.width;
+        m_latestFrame.height = buffer.height;
+        m_latestFrame.stride = buffer.stride;
+        m_latestFrame.captureWidth = buffer.captureWidth;
+        m_latestFrame.captureHeight = buffer.captureHeight;
+        m_latestFrame.planeCount = buffer.planeCount;
+        m_latestFrame.ownsPlaneFds = false;
+        for (int i = 0; i < buffer.planeCount; ++i) {
+            m_latestFrame.planeFds[i] = buffer.planeFds[i];
+            m_latestFrame.planeOffsets[i] = buffer.planeOffsets[i];
+            m_latestFrame.planePitches[i] = buffer.planePitches[i];
+        }
+        emit frameArrived();
+        emit previewFrameReady();
+    }
+}
+
+void ApertarPreviewSocketClient::handlePreviewFrame(const QByteArray &message, QVector<int> attachedFds)
+{
+    auto closeAttachedFds = [&attachedFds]() {
+        for (int fd : attachedFds) {
+            if (fd >= 0)
+                ::close(fd);
+        }
+        attachedFds.clear();
+    };
+
+    qlonglong frameId = 0;
+    qlonglong slotIndex = 0;
+    if (!jsonIntegerValue(message, "frame_id", &frameId)) {
+        closeAttachedFds();
+        return;
+    }
+
+    if (attachedFds.isEmpty()) {
+        if (!jsonIntegerValue(message, "slot", &slotIndex))
+            return;
+
+        const unsigned int slot = static_cast<unsigned int>(qMax<qlonglong>(0, slotIndex));
+        auto it = m_registeredPreviewBuffers.find(slot);
+        if (it == m_registeredPreviewBuffers.end() || it->second.fd < 0)
+            return;
+
+        PreviewFrameInfo frame;
+        frame.procid = kOwnedFdProcId;
+        frame.slotIndex = slot;
+        frame.fdIsp = it->second.fd;
+        frame.frame = static_cast<uint64_t>(frameId);
+        frame.sequence = static_cast<unsigned int>(frameId);
+        frame.width = it->second.width;
+        frame.height = it->second.height;
+        frame.stride = it->second.stride;
+        frame.captureWidth = it->second.captureWidth;
+        frame.captureHeight = it->second.captureHeight;
+        frame.planeCount = it->second.planeCount;
+        frame.ownsPlaneFds = false;
+        for (int i = 0; i < frame.planeCount; ++i) {
+            frame.planeFds[i] = it->second.planeFds[i];
+            frame.planeOffsets[i] = it->second.planeOffsets[i];
+            frame.planePitches[i] = it->second.planePitches[i];
+        }
+        releaseOwnedPreviewFds();
+        m_latestFrame = frame;
+        m_lastFrame = frame.frame;
+        if (!m_loggedPreviewFrame) {
+            qInfo() << "Apertar preview frame received:"
+                    << frame.width << "x" << frame.height
+                    << "stride" << frame.stride
+                    << "slot" << frame.slotIndex
+                    << "planes" << frame.planeCount;
+            m_loggedPreviewFrame = true;
+        }
+        emit frameArrived();
+        emit previewFrameReady();
+        return;
+    }
+
+    qlonglong width = 0;
+    qlonglong height = 0;
+    qlonglong stride = 0;
+    qlonglong captureWidth = 0;
+    qlonglong captureHeight = 0;
+    qlonglong planeCount = 1;
+    if (!jsonIntegerValue(message, "width", &width) ||
+        !jsonIntegerValue(message, "height", &height) ||
+        !jsonIntegerValue(message, "stride", &stride)) {
+        closeAttachedFds();
+        return;
+    }
+    jsonIntegerValue(message, "slot", &slotIndex);
     jsonIntegerValue(message, "plane_count", &planeCount);
     jsonIntegerValue(message, "capture_width", &captureWidth);
     jsonIntegerValue(message, "capture_height", &captureHeight);
@@ -314,13 +536,12 @@ void ApertarPreviewSocketClient::handlePreviewFrame(const QByteArray &message, Q
         return;
     }
 
-    closePreviewFd();
-    m_previewFd = attachedFds.front();
-
     PreviewFrameInfo frame;
     frame.procid = kOwnedFdProcId;
-    frame.fdIsp = m_previewFd;
+    frame.fdIsp = attachedFds.front();
+    frame.slotIndex = static_cast<unsigned int>(qMax<qlonglong>(0, slotIndex));
     frame.planeCount = static_cast<int>(planeCount);
+    frame.ownsPlaneFds = true;
     frame.frame = static_cast<uint64_t>(frameId);
     frame.sequence = static_cast<unsigned int>(frameId);
     frame.width = static_cast<unsigned int>(width);
@@ -344,8 +565,19 @@ void ApertarPreviewSocketClient::handlePreviewFrame(const QByteArray &message, Q
     }
     attachedFds.clear();
 
+    releaseOwnedPreviewFds();
+    m_previewFd = frame.fdIsp;
     m_latestFrame = frame;
     m_lastFrame = frame.frame;
+    if (!m_loggedPreviewFrame) {
+        qInfo() << "Apertar preview frame received:"
+                << frame.width << "x" << frame.height
+                << "stride" << frame.stride
+                << "slot" << frame.slotIndex
+                << "planes" << frame.planeCount
+                << "attached";
+        m_loggedPreviewFrame = true;
+    }
     emit frameArrived();
     emit previewFrameReady();
 }

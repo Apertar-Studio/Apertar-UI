@@ -6,9 +6,15 @@
 #include <QDBusError>
 #include <QDBusInterface>
 #include <QDBusReply>
+#include <QDBusVariant>
+#include <QDir>
+#include <QElapsedTimer>
 #include <cstring>
 #include <QFile>
+#include <QFileInfo>
 #include <QProcess>
+#include <QStandardPaths>
+#include <QThread>
 #include <QTemporaryFile>
 #include <QTime>
 #include <QTimeZone>
@@ -17,6 +23,43 @@ namespace {
 constexpr auto kFanBlockStart = "# BEGIN APERTAR FAN MODE";
 constexpr auto kFanBlockEnd = "# END APERTAR FAN MODE";
 constexpr auto kBootConfigPath = "/boot/firmware/config.txt";
+
+QString resolveExecutablePath(const QStringList &candidates, const QString &fallbackName)
+{
+    for (const QString &candidate : candidates) {
+        const QFileInfo info(candidate);
+        if (info.exists() && info.isExecutable())
+            return info.absoluteFilePath();
+    }
+
+    const QString discovered = QStandardPaths::findExecutable(fallbackName);
+    if (!discovered.isEmpty())
+        return discovered;
+
+    return fallbackName;
+}
+
+QString timedatectlProgram()
+{
+    static const QString path = resolveExecutablePath(
+        {QStringLiteral("/usr/bin/timedatectl"),
+         QStringLiteral("/bin/timedatectl"),
+         QStringLiteral("/usr/sbin/timedatectl"),
+         QStringLiteral("/sbin/timedatectl")},
+        QStringLiteral("timedatectl"));
+    return path;
+}
+
+QString hwclockProgram()
+{
+    static const QString path = resolveExecutablePath(
+        {QStringLiteral("/usr/sbin/hwclock"),
+         QStringLiteral("/sbin/hwclock"),
+         QStringLiteral("/usr/bin/hwclock"),
+         QStringLiteral("/bin/hwclock")},
+        QStringLiteral("hwclock"));
+    return path;
+}
 
 QString fanModeBlock(const QString &mode)
 {
@@ -95,6 +138,102 @@ QString detectManagedFanMode(const QString &text)
         return QStringLiteral("Full Blast");
     return QStringLiteral("Auto");
 }
+
+QVariant timedatedPropertyValue(const QString &propertyName)
+{
+    QDBusInterface properties(QStringLiteral("org.freedesktop.timedate1"),
+                              QStringLiteral("/org/freedesktop/timedate1"),
+                              QStringLiteral("org.freedesktop.DBus.Properties"),
+                              QDBusConnection::systemBus());
+    if (!properties.isValid())
+        return {};
+
+    const QDBusMessage reply = properties.call(QStringLiteral("Get"),
+                                               QStringLiteral("org.freedesktop.timedate1"),
+                                               propertyName);
+    if (reply.type() == QDBusMessage::ErrorMessage || reply.arguments().isEmpty())
+        return {};
+
+    const QDBusVariant boxed = qvariant_cast<QDBusVariant>(reply.arguments().constFirst());
+    return boxed.variant();
+}
+
+bool timedatedBoolProperty(const QString &propertyName, bool *ok = nullptr)
+{
+    if (ok)
+        *ok = false;
+
+    const QVariant value = timedatedPropertyValue(propertyName);
+    if (!value.isValid())
+        return false;
+
+    if (value.metaType().id() == QMetaType::Bool) {
+        if (ok)
+            *ok = true;
+        return value.toBool();
+    }
+
+    const QString normalized = value.toString().trimmed().toLower();
+    if (normalized == QStringLiteral("true")
+        || normalized == QStringLiteral("yes")
+        || normalized == QStringLiteral("1")) {
+        if (ok)
+            *ok = true;
+        return true;
+    }
+
+    if (normalized == QStringLiteral("false")
+        || normalized == QStringLiteral("no")
+        || normalized == QStringLiteral("0")) {
+        if (ok)
+            *ok = true;
+        return false;
+    }
+
+    return false;
+}
+
+bool waitForTimedatedNetworkSync(int timeoutMs)
+{
+    bool canNtpKnown = false;
+    const bool canNtp = timedatedBoolProperty(QStringLiteral("CanNTP"), &canNtpKnown);
+    if (canNtpKnown && !canNtp)
+        return false;
+
+    QElapsedTimer timer;
+    timer.start();
+
+    while (timer.elapsed() < timeoutMs) {
+        bool syncKnown = false;
+        const bool synced = timedatedBoolProperty(QStringLiteral("NTPSynchronized"), &syncKnown);
+        if (syncKnown && synced)
+            return true;
+        QThread::msleep(250);
+    }
+
+    bool syncKnown = false;
+    const bool synced = timedatedBoolProperty(QStringLiteral("NTPSynchronized"), &syncKnown);
+    return syncKnown && synced;
+}
+
+bool hardwareClockDeviceAvailable()
+{
+    if (QFileInfo::exists(QStringLiteral("/dev/rtc"))
+        || QFileInfo::exists(QStringLiteral("/dev/rtc0")))
+        return true;
+
+    QDir rtcClassDir(QStringLiteral("/sys/class/rtc"));
+    return !rtcClassDir.entryList({QStringLiteral("rtc*")},
+                                  QDir::Dirs | QDir::NoDotAndDotDot).isEmpty();
+}
+
+bool isMissingHardwareClockError(const QString &errorMessage)
+{
+    const QString lower = errorMessage.toLower();
+    return lower.contains(QStringLiteral("cannot access the hardware clock via any known method"))
+        || lower.contains(QStringLiteral("no usable clock interface found"))
+        || lower.contains(QStringLiteral("no such file or directory"));
+}
 }
 
 SystemActionBridge::SystemActionBridge(QObject *parent)
@@ -142,6 +281,57 @@ bool SystemActionBridge::shutdownCamera()
     return invokePowerAction(QStringLiteral("PowerOff"), {QStringLiteral("poweroff")});
 }
 
+bool SystemActionBridge::applyTimeZone(const QString &timeZone)
+{
+    setLastError(QString());
+
+    QTimeZone zone(timeZone.toUtf8());
+    if (!zone.isValid())
+        zone = QTimeZone::systemTimeZone();
+    if (!zone.isValid())
+        zone = QTimeZone::utc();
+
+    const QString zoneName = QString::fromUtf8(zone.id());
+    QString errorMessage;
+
+    if (!invokeTimedatedCall(QStringLiteral("SetTimezone"),
+                             {QVariant::fromValue(zoneName), QVariant::fromValue(false)},
+                             &errorMessage)) {
+        if (!invokePrivilegedCommand(timedatectlProgram(),
+                                     {QStringLiteral("set-timezone"), zoneName},
+                                     &errorMessage)) {
+            if (errorMessage.isEmpty())
+                errorMessage = QStringLiteral("Could not update the system timezone.");
+            setLastError(errorMessage);
+            return false;
+        }
+    }
+
+    errorMessage.clear();
+    if (!invokeTimedatedCall(QStringLiteral("SetNTP"),
+                             {QVariant::fromValue(true), QVariant::fromValue(false)},
+                             &errorMessage)) {
+        errorMessage.clear();
+        invokePrivilegedCommand(timedatectlProgram(),
+                                {QStringLiteral("set-ntp"), QStringLiteral("true")},
+                                &errorMessage);
+    }
+
+    const bool networkSynced = waitForTimedatedNetworkSync(2500);
+    if (networkSynced) {
+        errorMessage.clear();
+        if (!syncHardwareClockIfAvailable(&errorMessage)) {
+            if (errorMessage.isEmpty())
+                errorMessage = QStringLiteral("The system clock synced, but writing it to the RTC failed.");
+            setLastError(errorMessage);
+            return false;
+        }
+    }
+
+    setCurrentTimeZone(zoneName);
+    return true;
+}
+
 bool SystemActionBridge::applyDateTime(int year,
                                        int month,
                                        int day,
@@ -174,7 +364,7 @@ bool SystemActionBridge::applyDateTime(int year,
     if (!invokeTimedatedCall(QStringLiteral("SetNTP"),
                              {QVariant::fromValue(false), QVariant::fromValue(false)},
                              &errorMessage)) {
-        if (!invokePrivilegedCommand(QStringLiteral("timedatectl"),
+        if (!invokePrivilegedCommand(timedatectlProgram(),
                                      {QStringLiteral("set-ntp"), QStringLiteral("false")},
                                      &errorMessage)) {
             if (errorMessage.isEmpty())
@@ -188,7 +378,7 @@ bool SystemActionBridge::applyDateTime(int year,
     if (!invokeTimedatedCall(QStringLiteral("SetTimezone"),
                              {QVariant::fromValue(zoneName), QVariant::fromValue(false)},
                              &errorMessage)) {
-        if (!invokePrivilegedCommand(QStringLiteral("timedatectl"),
+        if (!invokePrivilegedCommand(timedatectlProgram(),
                                      {QStringLiteral("set-timezone"), zoneName},
                                      &errorMessage)) {
             if (errorMessage.isEmpty())
@@ -204,7 +394,7 @@ bool SystemActionBridge::applyDateTime(int year,
                               QVariant::fromValue(false),
                               QVariant::fromValue(false)},
                              &errorMessage)) {
-        if (!invokePrivilegedCommand(QStringLiteral("timedatectl"),
+        if (!invokePrivilegedCommand(timedatectlProgram(),
                                      {QStringLiteral("set-time"), localDateTimeString},
                                      &errorMessage)) {
             if (errorMessage.isEmpty())
@@ -215,9 +405,7 @@ bool SystemActionBridge::applyDateTime(int year,
     }
 
     errorMessage.clear();
-    if (!invokePrivilegedCommand(QStringLiteral("hwclock"),
-                                 {QStringLiteral("--systohc"), QStringLiteral("--utc")},
-                                 &errorMessage)) {
+    if (!syncHardwareClockIfAvailable(&errorMessage)) {
         if (errorMessage.isEmpty())
             errorMessage = QStringLiteral("The system time changed, but writing it to the RTC failed.");
         setLastError(errorMessage);
@@ -295,6 +483,7 @@ bool SystemActionBridge::invokePowerAction(const QString &dbusMethod, const QStr
 {
     setLastError(QString());
 
+    QString loginManagerError;
     QDBusInterface loginManager(QStringLiteral("org.freedesktop.login1"),
                                 QStringLiteral("/org/freedesktop/login1"),
                                 QStringLiteral("org.freedesktop.login1.Manager"),
@@ -305,22 +494,35 @@ bool SystemActionBridge::invokePowerAction(const QString &dbusMethod, const QStr
         if (reply.isValid()) {
             return true;
         }
+        loginManagerError = reply.error().message();
     }
 
+    QStringList nonInteractiveSystemctlArgs;
+    nonInteractiveSystemctlArgs << QStringLiteral("--no-ask-password");
+    nonInteractiveSystemctlArgs << systemctlArgs;
+
     QString errorMessage;
-    if (invokeSystemctl(systemctlArgs, &errorMessage)) {
+    if (invokePrivilegedCommand(QStringLiteral("systemctl"),
+                                nonInteractiveSystemctlArgs,
+                                &errorMessage)) {
         return true;
     }
 
-    if (errorMessage.isEmpty() && loginManager.isValid()) {
-        errorMessage = loginManager.lastError().message();
+    if (invokeSystemctl(nonInteractiveSystemctlArgs, &errorMessage)) {
+        return true;
     }
 
     if (errorMessage.isEmpty()) {
-        errorMessage = QStringLiteral("Permission denied or system power control is unavailable.");
+        if (!loginManagerError.isEmpty())
+            errorMessage = loginManagerError;
+        else if (loginManager.isValid())
+            errorMessage = loginManager.lastError().message();
     }
 
-    setLastError(errorMessage);
+    if (errorMessage.isEmpty())
+        errorMessage = QStringLiteral("Permission denied or system power control is unavailable.");
+
+    setLastError(normalizedPowerError(errorMessage));
     return false;
 }
 
@@ -335,8 +537,16 @@ bool SystemActionBridge::invokeSystemctl(const QStringList &arguments, QString *
         return false;
     }
 
-    if (!process.waitForFinished(3000)) {
-        return true;
+    if (!process.waitForFinished(4000)) {
+        process.terminate();
+        if (!process.waitForFinished(1000)) {
+            process.kill();
+            process.waitForFinished(1000);
+        }
+
+        if (errorMessage)
+            *errorMessage = QStringLiteral("systemctl did not finish in time.");
+        return false;
     }
 
     if (process.exitStatus() == QProcess::NormalExit && process.exitCode() == 0) {
@@ -352,6 +562,25 @@ bool SystemActionBridge::invokeSystemctl(const QStringList &arguments, QString *
                                              : QStringLiteral("systemctl rejected the power action."));
     }
     return false;
+}
+
+QString SystemActionBridge::normalizedPowerError(const QString &errorMessage) const
+{
+    const QString normalized = errorMessage.trimmed();
+    const QString lower = normalized.toLower();
+
+    if (lower.contains(QStringLiteral("multiple-sessions"))
+        || lower.contains(QStringLiteral("authentication is required"))
+        || lower.contains(QStringLiteral("interactive authentication required"))
+        || lower.contains(QStringLiteral("access denied"))
+        || lower.contains(QStringLiteral("a password is required"))
+        || lower.contains(QStringLiteral("sudo")))
+        return QStringLiteral("Shutdown needs a passwordless sudo rule for systemctl or a polkit rule that allows power off with multiple sessions.");
+
+    if (normalized.isEmpty())
+        return QStringLiteral("Permission denied or system power control is unavailable.");
+
+    return normalized;
 }
 
 bool SystemActionBridge::invokeTimedatedCall(const QString &method,
@@ -417,6 +646,26 @@ bool SystemActionBridge::invokePrivilegedCommand(const QString &program,
                         : (!stdOut.isEmpty() ? stdOut
                                              : QStringLiteral("%1 failed.").arg(program));
     }
+    return false;
+}
+
+bool SystemActionBridge::syncHardwareClockIfAvailable(QString *errorMessage)
+{
+    if (!hardwareClockDeviceAvailable())
+        return true;
+
+    QString hwclockError;
+    if (invokePrivilegedCommand(hwclockProgram(),
+                                {QStringLiteral("--systohc"), QStringLiteral("--utc")},
+                                &hwclockError)) {
+        return true;
+    }
+
+    if (isMissingHardwareClockError(hwclockError))
+        return true;
+
+    if (errorMessage)
+        *errorMessage = hwclockError;
     return false;
 }
 

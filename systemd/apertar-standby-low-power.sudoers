@@ -1,0 +1,1 @@
+pi ALL=(root) NOPASSWD: /usr/local/libexec/apertar-standby-low-power cpu, /usr/local/libexec/apertar-standby-low-power nvme, /usr/local/libexec/apertar-standby-low-power bluetooth, /usr/local/libexec/apertar-standby-low-power all, /usr/local/libexec/apertar-standby-low-power restore

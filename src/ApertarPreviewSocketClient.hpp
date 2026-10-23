@@ -8,6 +8,7 @@
 #include <QVector>
 #include <optional>
 #include <cstdint>
+#include <unordered_map>
 
 #include "PreviewFrameInfo.hpp"
 
@@ -43,16 +44,32 @@ private slots:
 
 private:
     static constexpr int kOwnedFdProcId = -4242;
+    struct RegisteredPreviewBuffer {
+        int fd = -1;
+        int planeFds[3] = { -1, -1, -1 };
+        unsigned int width = 0;
+        unsigned int height = 0;
+        unsigned int stride = 0;
+        unsigned int captureWidth = 0;
+        unsigned int captureHeight = 0;
+        int planeCount = 0;
+        unsigned int planeOffsets[3] = { 0, 0, 0 };
+        unsigned int planePitches[3] = { 0, 0, 0 };
+    };
 
     void closeSocket();
     void closePendingFds();
     void scheduleReconnect();
     void processReadBuffer();
+    bool requestPreviewSubscription();
     QVector<int> takePendingFdsForMessage(const QByteArray &message);
     void setConnected(bool connected);
     void setStatusText(const QString &text);
+    void releaseOwnedPreviewFds();
     void closePreviewFd();
+    void closeRegisteredPreviewBuffers();
     void handleMessage(const QByteArray &message, QVector<int> attachedFds);
+    void handlePreviewBuffer(const QByteArray &message, QVector<int> attachedFds);
     void handlePreviewFrame(const QByteArray &message, QVector<int> attachedFds);
     bool jsonStringValue(const QByteArray &message, const QByteArray &key, QByteArray *value) const;
     bool jsonIntegerValue(const QByteArray &message, const QByteArray &key, qlonglong *value) const;
@@ -69,4 +86,7 @@ private:
     int m_previewFd = -1;
     uint64_t m_lastFrame = 0;
     PreviewFrameInfo m_latestFrame;
+    std::unordered_map<unsigned int, RegisteredPreviewBuffer> m_registeredPreviewBuffers;
+    bool m_loggedPreviewBuffer = false;
+    bool m_loggedPreviewFrame = false;
 };

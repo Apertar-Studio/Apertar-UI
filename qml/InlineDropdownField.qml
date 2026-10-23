@@ -5,6 +5,7 @@ Item {
 
     property string label: ""
     property string value: ""
+    property string displayValue: value
     property var options: []
     property bool isOpen: false
     property real maxPopupHeight: 220
@@ -12,6 +13,17 @@ Item {
     property var dropdownController: null
     property bool openUpwards: false
     property bool fieldEnabled: true
+    property bool landscapeCompact: typeof displayConfigBridge !== "undefined"
+                                    && displayConfigBridge.uiLayout === "landscape_compact"
+    property bool mediumLandscape: typeof displayConfigBridge !== "undefined"
+                                   && displayConfigBridge.uiLayout === "landscape_medium"
+    property bool largeLandscape: typeof displayConfigBridge !== "undefined"
+                                  && displayConfigBridge.uiLayout === "landscape_large"
+    property bool standardLandscape: typeof displayConfigBridge !== "undefined"
+                                     && displayConfigBridge.uiLayout === "landscape"
+    property bool regularLandscape: mediumLandscape || standardLandscape || largeLandscape
+    property bool compact: landscapeCompact || regularLandscape
+    property bool large: standardLandscape || largeLandscape
 
     property real popupOffsetY: openUpwards ? 6 : -6
     property real popupX: 0
@@ -20,11 +32,35 @@ Item {
     signal valueSelected(string value)
 
     width: 200
-    height: 66
+    height: largeLandscape ? 92 : (large ? 72 : (compact ? 54 : 66))
     z: 1
 
     FontLoader { id: interRegular; source: "qrc:/qml/fonts/Inter/Inter-Regular.ttf" }
     FontLoader { id: interMedium; source: "qrc:/qml/fonts/Inter/Inter-Medium.ttf" }
+
+    function optionLabel(option) {
+        if (option && typeof option === "object") {
+            if (option.label !== undefined)
+                return String(option.label)
+            if (option.text !== undefined)
+                return String(option.text)
+            if (option.value !== undefined)
+                return String(option.value)
+        }
+        return String(option)
+    }
+
+    function optionValue(option) {
+        if (option && typeof option === "object" && option.value !== undefined)
+            return String(option.value)
+        return String(option)
+    }
+
+    function optionEnabled(option) {
+        if (option && typeof option === "object" && option.enabled !== undefined)
+            return !!option.enabled
+        return true
+    }
 
     function updatePopupPosition() {
         var anchorY = openUpwards ? (-popup.height - 8) : (root.height + 8)
@@ -41,7 +77,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 18
+        radius: root.largeLandscape ? 24 : (root.large ? 18 : (root.compact ? 14 : 18))
         color: root.fieldEnabled
                ? (openArea.containsPress ? "#18ffffff" : "#40000000")
                : "#1f000000"
@@ -50,31 +86,31 @@ Item {
 
         Item {
             anchors.fill: parent
-            anchors.leftMargin: 16
-            anchors.rightMargin: 16
-            anchors.topMargin: 12
-            anchors.bottomMargin: 12
+            anchors.leftMargin: root.largeLandscape ? 22 : (root.large ? 16 : (root.compact ? 12 : 16))
+            anchors.rightMargin: root.largeLandscape ? 22 : (root.large ? 16 : (root.compact ? 12 : 16))
+            anchors.topMargin: root.largeLandscape ? 14 : (root.large ? 11 : (root.compact ? 8 : 12))
+            anchors.bottomMargin: root.largeLandscape ? 14 : (root.large ? 11 : (root.compact ? 8 : 12))
 
             Column {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: 4
+                spacing: root.largeLandscape ? 6 : (root.large ? 4 : (root.compact ? 2 : 4))
 
                 Text {
                     text: root.label
                     color: root.fieldEnabled ? "#66ffffff" : "#42ffffff"
                     font.family: interMedium.font.family
-                    font.pixelSize: 11
+                    font.pixelSize: root.largeLandscape ? 15 : (root.large ? 11 : (root.compact ? 9 : 11))
                     font.capitalization: Font.AllUppercase
-                    font.letterSpacing: 2.2
+                    font.letterSpacing: root.largeLandscape ? 3.0 : (root.large ? 2.2 : (root.compact ? 1.8 : 2.2))
                     renderType: Text.NativeRendering
                 }
 
                 Text {
-                    text: root.value
+                    text: root.displayValue
                     color: root.fieldEnabled ? "white" : "#66ffffff"
                     font.family: interMedium.font.family
-                    font.pixelSize: 16
+                    font.pixelSize: root.largeLandscape ? 24 : (root.large ? 18 : (root.compact ? 13 : 16))
                     renderType: Text.NativeRendering
                 }
             }
@@ -85,7 +121,7 @@ Item {
                 text: "⌄"
                 color: root.fieldEnabled ? "#80ffffff" : "#40ffffff"
                 font.family: interRegular.font.family
-                font.pixelSize: 14
+                font.pixelSize: root.largeLandscape ? 22 : (root.large ? 16 : (root.compact ? 12 : 14))
                 rotation: root.isOpen ? 180 : 0
                 renderType: Text.NativeRendering
 
@@ -130,8 +166,8 @@ Item {
         Rectangle {
             id: popup
             width: root.width
-            height: Math.min(optionsColumn.implicitHeight + 12, root.maxPopupHeight)
-            radius: 18
+            height: Math.min(optionsColumn.implicitHeight + (root.largeLandscape ? 18 : (root.large ? 12 : (root.compact ? 8 : 12))), root.maxPopupHeight)
+            radius: root.largeLandscape ? 24 : (root.large ? 18 : (root.compact ? 14 : 18))
             color: "#171717"
             border.width: 1
             border.color: "#22ffffff"
@@ -140,7 +176,7 @@ Item {
             Flickable {
                 id: flick
                 anchors.fill: parent
-                anchors.margins: 6
+                anchors.margins: root.largeLandscape ? 9 : (root.large ? 6 : (root.compact ? 4 : 6))
                 contentWidth: width
                 contentHeight: optionsColumn.implicitHeight
                 clip: true
@@ -151,30 +187,34 @@ Item {
                 Column {
                     id: optionsColumn
                     width: flick.width
-                    spacing: 4
+                    spacing: root.largeLandscape ? 6 : (root.large ? 4 : (root.compact ? 3 : 4))
 
                     Repeater {
                         model: root.options
 
                         delegate: Rectangle {
                             width: optionsColumn.width
-                            height: 42
-                            radius: 14
-                            color: modelData === root.value ? "#24ffffff" : "transparent"
+                            height: root.largeLandscape ? 58 : (root.large ? 44 : (root.compact ? 34 : 42))
+                            radius: root.largeLandscape ? 18 : (root.large ? 14 : (root.compact ? 11 : 14))
+                            readonly property string itemValue: root.optionValue(modelData)
+                            readonly property string itemLabel: root.optionLabel(modelData)
+                            readonly property bool itemEnabled: root.optionEnabled(modelData)
+                            color: itemValue === root.value ? "#24ffffff" : "transparent"
 
                             Text {
                                 anchors.centerIn: parent
-                                text: modelData
-                                color: "white"
+                                text: parent.itemLabel
+                                color: parent.itemEnabled ? "white" : "#52ffffff"
                                 font.family: interMedium.font.family
-                                font.pixelSize: 16
+                                font.pixelSize: root.largeLandscape ? 24 : (root.large ? 17 : (root.compact ? 13 : 16))
                                 renderType: Text.NativeRendering
                             }
 
                             MouseArea {
                                 anchors.fill: parent
+                                enabled: parent.itemEnabled
                                 onClicked: {
-                                    root.valueSelected(modelData)
+                                    root.valueSelected(parent.itemValue)
                                     root.isOpen = false
                                     if (root.dropdownController && root.dropdownController.activeDropdown === root)
                                         root.dropdownController.activeDropdown = null
@@ -259,7 +299,8 @@ Item {
     }
 
     Connections {
-        target: root.dropdownController
+        target: root.dropdownController ? root.dropdownController : null
+        ignoreUnknownSignals: true
 
         function onActiveDropdownChanged() {
             if (root.dropdownController && root.dropdownController.activeDropdown !== root && root.isOpen)

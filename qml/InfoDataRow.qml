@@ -6,10 +6,14 @@ Rectangle {
     property string label: ""
     property string value: ""
     property string detail: ""
+    property bool largeLandscape: typeof displayConfigBridge !== "undefined"
+                                  && displayConfigBridge.uiLayout === "landscape_large"
+    property bool standardLandscape: typeof displayConfigBridge !== "undefined"
+                                    && displayConfigBridge.uiLayout === "landscape"
 
     width: parent ? parent.width : 400
-    height: detail.length > 0 ? 84 : 68
-    radius: 18
+    height: largeLandscape ? (detail.length > 0 ? 132 : 106) : (standardLandscape ? (detail.length > 0 ? 100 : 80) : (detail.length > 0 ? 84 : 68))
+    radius: largeLandscape ? 26 : (standardLandscape ? 20 : 18)
     color: "#171717"
     border.width: 1
     border.color: "#1affffff"
@@ -20,17 +24,17 @@ Rectangle {
 
     Item {
         anchors.fill: parent
-        anchors.margins: 14
+        anchors.margins: root.largeLandscape ? 22 : (root.standardLandscape ? 16 : 14)
 
         Column {
             anchors.fill: parent
-            spacing: 4
+            spacing: root.largeLandscape ? 8 : (root.standardLandscape ? 5 : 4)
 
             Text {
                 text: root.label
                 color: "#66ffffff"
                 font.family: interMedium.font.family
-                font.pixelSize: 11
+                font.pixelSize: root.largeLandscape ? 16 : (root.standardLandscape ? 12 : 11)
                 font.capitalization: Font.AllUppercase
                 font.letterSpacing: 2.0
                 renderType: Text.NativeRendering
@@ -40,7 +44,7 @@ Rectangle {
                 text: root.value
                 color: "white"
                 font.family: interBold.font.family
-                font.pixelSize: 18
+                font.pixelSize: root.largeLandscape ? 29 : (root.standardLandscape ? 21 : 18)
                 width: parent.width
                 elide: Text.ElideRight
                 renderType: Text.NativeRendering
@@ -51,7 +55,7 @@ Rectangle {
                 text: root.detail
                 color: "#8cffffff"
                 font.family: interRegular.font.family
-                font.pixelSize: 13
+                font.pixelSize: root.largeLandscape ? 20 : (root.standardLandscape ? 15 : 13)
                 width: parent.width
                 wrapMode: Text.WordWrap
                 renderType: Text.NativeRendering

@@ -1,0 +1,1 @@
+pi ALL=(root) NOPASSWD: /usr/local/libexec/apertar-standby-usb off, /usr/local/libexec/apertar-standby-usb on

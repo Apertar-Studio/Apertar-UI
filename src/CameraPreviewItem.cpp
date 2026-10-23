@@ -1,6 +1,7 @@
 #include "CameraPreviewItem.hpp"
 #include <QQuickWindow>
 #include <algorithm>
+#include <cmath>
 
 CameraPreviewItem::CameraPreviewItem(QQuickItem *parent)
     : QQuickItem(parent)
@@ -128,6 +129,18 @@ void CameraPreviewItem::setGrayscaleEnabled(bool value)
         window()->update();
 }
 
+void CameraPreviewItem::setSmpteEnabled(bool value)
+{
+    if (m_smpteEnabled == value)
+        return;
+
+    m_smpteEnabled = value;
+    emit smpteEnabledChanged();
+
+    if (window())
+        window()->update();
+}
+
 void CameraPreviewItem::setAnamorphicDesqueezeEnabled(bool value)
 {
     if (m_anamorphicDesqueezeEnabled == value)
@@ -173,6 +186,75 @@ void CameraPreviewItem::setFalseColorMode(int value)
 
     m_falseColorMode = value;
     emit falseColorModeChanged();
+
+    if (window())
+        window()->update();
+}
+
+void CameraPreviewItem::setLutPreviewEnabled(bool value)
+{
+    if (m_lutPreviewEnabled == value)
+        return;
+
+    m_lutPreviewEnabled = value;
+    emit lutPreviewEnabledChanged();
+
+    if (window())
+        window()->update();
+}
+
+void CameraPreviewItem::setLutPreviewFile(const QString &value)
+{
+    if (m_lutPreviewFile == value)
+        return;
+
+    m_lutPreviewFile = value;
+    emit lutPreviewFileChanged();
+
+    if (window())
+        window()->update();
+}
+
+void CameraPreviewItem::setExposureReference(const QVariantMap &value)
+{
+    if (m_exposureReference==value) return;
+    m_exposureReference=value;
+    emit exposureReferenceChanged();
+    if (window()) window()->update();
+}
+
+void CameraPreviewItem::setDisplayRotation(int value)
+{
+    int normalized = value % 360;
+    if (normalized < 0)
+        normalized += 360;
+    if (normalized == 270)
+        normalized = -90;
+    else if (normalized == 180)
+        normalized = 180;
+    else if (normalized == 90)
+        normalized = 90;
+    else
+        normalized = 0;
+
+    if (m_displayRotation == normalized)
+        return;
+
+    m_displayRotation = normalized;
+    emit displayRotationChanged();
+
+    if (window())
+        window()->update();
+}
+
+void CameraPreviewItem::setPreviewAspectRatio(float value)
+{
+    value = (std::isfinite(value) && value > 0.01f) ? std::min(value, 10.0f) : 0.0f;
+    if (qFuzzyCompare(m_previewAspectRatio + 1.0f, value + 1.0f))
+        return;
+
+    m_previewAspectRatio = value;
+    emit previewAspectRatioChanged();
 
     if (window())
         window()->update();

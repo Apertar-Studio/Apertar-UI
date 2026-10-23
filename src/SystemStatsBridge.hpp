@@ -12,6 +12,7 @@ class SystemStatsBridge : public QObject
 
 public:
     explicit SystemStatsBridge(QObject *parent = nullptr);
+    void setStandby(bool standby);
 
     double cpuPercent() const { return m_cpuPercent; }
     double socTempC() const { return m_socTempC; }

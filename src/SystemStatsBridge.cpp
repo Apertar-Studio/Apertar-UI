@@ -19,6 +19,17 @@ QString SystemStatsBridge::cpuText() const
         .arg(QString::number(m_socTempC, 'f', 0));
 }
 
+void SystemStatsBridge::setStandby(bool standby)
+{
+    if (standby) {
+        m_timer.stop();
+    } else {
+        m_havePrevCpuSample = false;
+        updateStats();
+        m_timer.start(1000);
+    }
+}
+
 bool SystemStatsBridge::readCpuTimes(qulonglong &idle, qulonglong &total) const
 {
     QFile file("/proc/stat");

@@ -8,8 +8,10 @@ struct PreviewFrameInfo
     int fdRaw = -1;
     int fdIsp = -1;
     int fallbackFdIsp = -1;
+    unsigned int slotIndex = 0;
     int planeCount = 0;
     int planeFds[3] = { -1, -1, -1 };
+    bool ownsPlaneFds = false;
     unsigned int planeOffsets[3] = { 0, 0, 0 };
     unsigned int planePitches[3] = { 0, 0, 0 };
     uint64_t frame = 0;

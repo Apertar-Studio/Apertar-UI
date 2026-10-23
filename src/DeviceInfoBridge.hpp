@@ -17,12 +17,16 @@ class DeviceInfoBridge : public QObject
     Q_PROPERTY(QString hostname READ hostname NOTIFY infoChanged)
     Q_PROPERTY(QString ramTotalText READ ramTotalText NOTIFY infoChanged)
     Q_PROPERTY(QString ramAvailableText READ ramAvailableText NOTIFY infoChanged)
+    Q_PROPERTY(QString ramUsedText READ ramUsedText NOTIFY infoChanged)
     Q_PROPERTY(QString systemStorageTotalText READ systemStorageTotalText NOTIFY infoChanged)
     Q_PROPERTY(QString systemStorageFreeText READ systemStorageFreeText NOTIFY infoChanged)
     Q_PROPERTY(QString systemStorageMountPoint READ systemStorageMountPoint NOTIFY infoChanged)
 
 public:
     explicit DeviceInfoBridge(QObject *parent = nullptr);
+
+    void startDeferredRefresh();
+    Q_INVOKABLE void setDynamicPollingEnabled(bool enabled);
 
     QString sensorName() const { return m_sensorName; }
     QString backendName() const { return QStringLiteral("Apertar-Core / libcamera"); }
@@ -35,6 +39,7 @@ public:
     QString hostname() const { return m_hostname; }
     QString ramTotalText() const { return m_ramTotalText; }
     QString ramAvailableText() const { return m_ramAvailableText; }
+    QString ramUsedText() const { return m_ramUsedText; }
     QString systemStorageTotalText() const { return m_systemStorageTotalText; }
     QString systemStorageFreeText() const { return m_systemStorageFreeText; }
     QString systemStorageMountPoint() const { return m_systemStorageMountPoint; }
@@ -58,9 +63,11 @@ private:
     qulonglong readMemInfoValueKb(const QString &key) const;
 
     QTimer m_refreshTimer;
+    bool m_deferredRefreshStarted = false;
+    bool m_dynamicPollingEnabled = false;
 
     QString m_sensorName = QStringLiteral("Unknown Sensor");
-    QString m_piModel = QStringLiteral("Raspberry Pi 5");
+    QString m_piModel = QStringLiteral("Raspberry Pi");
     QString m_serialNumber = QStringLiteral("Unavailable");
     QString m_osVersion = QStringLiteral("Unavailable");
     QString m_kernelVersion = QStringLiteral("Unavailable");
@@ -69,6 +76,7 @@ private:
     QString m_hostname = QStringLiteral("Unavailable");
     QString m_ramTotalText = QStringLiteral("Unavailable");
     QString m_ramAvailableText = QStringLiteral("Unavailable");
+    QString m_ramUsedText = QStringLiteral("Unavailable");
     QString m_systemStorageTotalText = QStringLiteral("Unavailable");
     QString m_systemStorageFreeText = QStringLiteral("Unavailable");
     QString m_systemStorageMountPoint = QStringLiteral("/");

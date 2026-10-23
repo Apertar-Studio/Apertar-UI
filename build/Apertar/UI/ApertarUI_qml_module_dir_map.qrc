@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/">/home/pi/ApertarUI/build/Apertar/UI</file>
+
+  </qresource>
+</RCC>

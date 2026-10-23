@@ -4,6 +4,8 @@ Item {
     id: root
 
     property string mode: "Exposure Based"
+    property color backgroundColor: "#9c000000"
+    property color borderColor: "#16ffffff"
     readonly property var entries: mode === "Skin Tone"
                                    ? [
                                        { label: "75", color: "#ff3b30" },
@@ -46,7 +48,6 @@ Item {
     opacity: 1.0
     scale: 1.0
 
-    FontLoader { id: interMedium; source: "qrc:/qml/fonts/Inter/Inter-Medium.ttf" }
     FontLoader { id: interBold; source: "qrc:/qml/fonts/Inter/Inter-Bold.ttf" }
 
     Rectangle {
@@ -54,9 +55,9 @@ Item {
         width: root.width
         height: legendColumn.implicitHeight + 22
         radius: 14
-        color: "#9c000000"
+        color: root.backgroundColor
         border.width: 1
-        border.color: "#16ffffff"
+        border.color: root.borderColor
 
         Item {
             anchors.fill: parent

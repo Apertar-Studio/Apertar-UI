@@ -1,0 +1,132 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 14,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "Cannot load property stillExposureActive from (component in /home/pi/ApertarUI/qml/StillExposureOverlay.qml)::controlBridge with type QVariant.",
+                        "functionName": "visible",
+                        "line": 8
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 74,
+                        "errorMessage": "Cannot load property stillExposureRemainingSeconds from (component in /home/pi/ApertarUI/qml/StillExposureOverlay.qml)::controlBridge with type QVariant.",
+                        "functionName": "updateCountdown",
+                        "line": 11
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 130,
+                        "errorMessage": "",
+                        "functionName": "onVisibleChanged",
+                        "line": 15
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 177,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 17
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 9,
+                        "durationMicroseconds": 150,
+                        "errorMessage": "",
+                        "functionName": "onStillExposureChanged",
+                        "line": 18
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 18,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "",
+                        "functionName": "running",
+                        "line": 22
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 154,
+                        "errorMessage": "",
+                        "functionName": "onTriggered",
+                        "line": 24
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 89,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 27
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 19,
+                        "durationMicroseconds": 609,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 31
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 35
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 187,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 30
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 114,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 33
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 113,
+                        "errorMessage": "",
+                        "functionName": "renderType",
+                        "line": 44
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "",
+                        "functionName": "family",
+                        "line": 41
+                    }
+                ],
+                "filepath": "/home/pi/ApertarUI/qml/StillExposureOverlay.qml"
+            }
+        ],
+        "moduleId": "Apertar.UI(ApertarUI)"
+    }
+]

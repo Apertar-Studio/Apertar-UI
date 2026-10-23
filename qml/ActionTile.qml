@@ -11,18 +11,31 @@ Rectangle {
     property string holdLabel: "Hold..."
     property real holdProgress: 0.0
     property bool holdTriggered: false
+    property bool landscapeCompact: typeof displayConfigBridge !== "undefined"
+                                    && displayConfigBridge.uiLayout === "landscape_compact"
+    property bool mediumLandscape: typeof displayConfigBridge !== "undefined"
+                                   && displayConfigBridge.uiLayout === "landscape_medium"
+    property bool largeLandscape: typeof displayConfigBridge !== "undefined"
+                                  && displayConfigBridge.uiLayout === "landscape_large"
+    property bool standardLandscape: typeof displayConfigBridge !== "undefined"
+                                     && displayConfigBridge.uiLayout === "landscape"
+    property bool regularLandscape: mediumLandscape || standardLandscape || largeLandscape
+    property bool compact: landscapeCompact || regularLandscape
     signal clicked()
 
     width: 200
-    height: 70
-    radius: 18
+    height: largeLandscape ? 88 : (standardLandscape ? 68 : (compact ? 54 : 70))
+    radius: largeLandscape ? 24 : (standardLandscape ? 18 : (compact ? 15 : 18))
     clip: true
     color: root.tone === "danger"
            ? (actionArea.pressed && root.actionEnabled ? "#a32828" : (root.actionEnabled ? "#8d2020" : "#2b1414"))
+           : root.tone === "accent"
+           ? (actionArea.pressed && root.actionEnabled ? "#1b5578" : "#123d59")
            : (actionArea.pressed && root.actionEnabled ? "#24ffffff" : "#171717")
     border.width: 1
     border.color: root.tone === "danger"
                   ? (root.actionEnabled ? "#ba4a4a" : "#5f2c2c")
+                  : root.tone === "accent" ? "#3fd0ff"
                   : "#1affffff"
     opacity: root.actionEnabled ? 1.0 : 0.45
 
@@ -84,9 +97,9 @@ Rectangle {
     Text {
         anchors.centerIn: parent
         text: root.holdToActivate && actionArea.pressed && !root.holdTriggered ? root.holdLabel : root.label
-        color: root.tone === "danger" ? "#ffd6d6" : "white"
+        color: root.tone === "danger" ? "#ffd6d6" : (root.tone === "accent" ? "#e2f6ff" : "white")
         font.family: interMedium.font.family
-        font.pixelSize: 16
+        font.pixelSize: root.largeLandscape ? 24 : (root.standardLandscape ? 17 : (root.compact ? 13 : 16))
         renderType: Text.NativeRendering
     }
 

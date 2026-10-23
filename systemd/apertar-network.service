@@ -1,0 +1,19 @@
+[Unit]
+Description=Apertar display-independent hotspot fallback
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+Environment=HOME=/home/pi
+Environment=LC_ALL=C.UTF-8
+RuntimeDirectory=apertar-network
+RuntimeDirectoryMode=0755
+ExecStart=/home/pi/ApertarUI/build/apertar-network-helper
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

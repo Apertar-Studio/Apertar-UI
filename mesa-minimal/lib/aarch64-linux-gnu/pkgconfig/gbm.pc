@@ -1,0 +1,11 @@
+prefix=/home/pi/ApertarUI/mesa-minimal
+includedir=${prefix}/include
+libdir=${prefix}/lib/aarch64-linux-gnu
+
+gbmbackendspath=/home/pi/ApertarUI/mesa-minimal/lib/aarch64-linux-gnu/gbm
+
+Name: gbm
+Description: Mesa gbm library
+Version: 26.2.0
+Libs: -L${libdir} -lgbm
+Cflags: -I${includedir}

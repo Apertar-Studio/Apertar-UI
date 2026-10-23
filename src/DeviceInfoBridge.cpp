@@ -16,11 +16,47 @@
 DeviceInfoBridge::DeviceInfoBridge(QObject *parent)
     : QObject(parent)
 {
-    detectStaticInfo();
-    refreshDynamicInfo();
+    // CameraPage needs the sensor name immediately, but the remaining system
+    // inventory can wait until after the first UI frame.
+    const QString sensor = detectSensorName();
+    if (!sensor.isEmpty())
+        m_sensorName = sensor;
 
     m_refreshTimer.setInterval(5000);
     connect(&m_refreshTimer, &QTimer::timeout, this, &DeviceInfoBridge::refreshDynamicInfo);
+    QTimer::singleShot(5000, this, &DeviceInfoBridge::startDeferredRefresh);
+}
+
+void DeviceInfoBridge::startDeferredRefresh()
+{
+    if (m_deferredRefreshStarted)
+        return;
+
+    m_deferredRefreshStarted = true;
+    detectStaticInfo();
+    emit infoChanged();
+    refreshDynamicInfo();
+    if (m_dynamicPollingEnabled)
+        m_refreshTimer.start();
+}
+
+void DeviceInfoBridge::setDynamicPollingEnabled(bool enabled)
+{
+    if (m_dynamicPollingEnabled == enabled)
+        return;
+
+    m_dynamicPollingEnabled = enabled;
+    if (!m_dynamicPollingEnabled) {
+        m_refreshTimer.stop();
+        return;
+    }
+
+    if (!m_deferredRefreshStarted) {
+        startDeferredRefresh();
+        return;
+    }
+
+    refreshDynamicInfo();
     m_refreshTimer.start();
 }
 
@@ -62,34 +98,47 @@ void DeviceInfoBridge::detectStaticInfo()
     if (!host.isEmpty())
         m_hostname = host;
 
-    const QString sensor = detectSensorName();
-    if (!sensor.isEmpty())
-        m_sensorName = sensor;
+    if (m_sensorName == QStringLiteral("Unknown Sensor")) {
+        const QString sensor = detectSensorName();
+        if (!sensor.isEmpty())
+            m_sensorName = sensor;
+    }
 }
 
 void DeviceInfoBridge::refreshDynamicInfo()
 {
     bool changed = false;
 
-    const QString nextSensorName = detectSensorName();
-    if (nextSensorName != m_sensorName) {
-        m_sensorName = nextSensorName;
-        changed = true;
-    }
-
     struct sysinfo info;
     const bool haveSysInfo = ::sysinfo(&info) == 0;
 
     const qulonglong memUnit = haveSysInfo ? static_cast<qulonglong>(info.mem_unit) : 1024ull;
-    const qulonglong memTotalBytes = haveSysInfo
-            ? static_cast<qulonglong>(info.totalram) * memUnit
-            : readMemInfoValueKb(QStringLiteral("MemTotal")) * 1024ull;
-    const qulonglong memAvailableBytes = haveSysInfo
-            ? static_cast<qulonglong>(info.freeram + info.bufferram) * memUnit
-            : readMemInfoValueKb(QStringLiteral("MemAvailable")) * 1024ull;
+    const qulonglong memTotalFromMemInfo = readMemInfoValueKb(QStringLiteral("MemTotal")) * 1024ull;
+    const qulonglong memAvailableFromMemInfo = readMemInfoValueKb(QStringLiteral("MemAvailable")) * 1024ull;
+    const qulonglong memFreeFromMemInfo = readMemInfoValueKb(QStringLiteral("MemFree")) * 1024ull;
+    const qulonglong buffersFromMemInfo = readMemInfoValueKb(QStringLiteral("Buffers")) * 1024ull;
+    const qulonglong cachedFromMemInfo = readMemInfoValueKb(QStringLiteral("Cached")) * 1024ull;
+    const qulonglong reclaimableFromMemInfo = readMemInfoValueKb(QStringLiteral("SReclaimable")) * 1024ull;
+    const qulonglong shmemFromMemInfo = readMemInfoValueKb(QStringLiteral("Shmem")) * 1024ull;
+    const qulonglong memTotalBytes = memTotalFromMemInfo > 0
+            ? memTotalFromMemInfo
+            : (haveSysInfo ? static_cast<qulonglong>(info.totalram) * memUnit : 0ull);
+    const qulonglong memAvailableBytes = memAvailableFromMemInfo > 0
+            ? memAvailableFromMemInfo
+            : (haveSysInfo ? static_cast<qulonglong>(info.freeram + info.bufferram) * memUnit : 0ull);
+    const qulonglong memUsedBytes = (memTotalBytes > 0 && memFreeFromMemInfo > 0)
+            ? qMin(memTotalBytes,
+                   memTotalBytes
+                   - qMin(memTotalBytes, memFreeFromMemInfo
+                                         + buffersFromMemInfo
+                                         + cachedFromMemInfo
+                                         + reclaimableFromMemInfo)
+                   + qMin(memTotalBytes, shmemFromMemInfo))
+            : (memTotalBytes > memAvailableBytes ? (memTotalBytes - memAvailableBytes) : 0ull);
 
     const QString nextRamTotal = memTotalBytes > 0 ? formatBytes(memTotalBytes) : QStringLiteral("Unavailable");
     const QString nextRamAvailable = memAvailableBytes > 0 ? formatBytes(memAvailableBytes) : QStringLiteral("Unavailable");
+    const QString nextRamUsed = memUsedBytes > 0 ? formatBytes(memUsedBytes) : QStringLiteral("Unavailable");
 
     if (nextRamTotal != m_ramTotalText) {
         m_ramTotalText = nextRamTotal;
@@ -98,6 +147,11 @@ void DeviceInfoBridge::refreshDynamicInfo()
 
     if (nextRamAvailable != m_ramAvailableText) {
         m_ramAvailableText = nextRamAvailable;
+        changed = true;
+    }
+
+    if (nextRamUsed != m_ramUsedText) {
+        m_ramUsedText = nextRamUsed;
         changed = true;
     }
 
@@ -156,6 +210,12 @@ QString DeviceInfoBridge::readTextFile(const QString &path) const
 
 QString DeviceInfoBridge::detectSensorName() const
 {
+    // Apertar's camera-selection file is authoritative and much cheaper than
+    // recursively opening hundreds of sysfs and device-tree files.
+    const QString fromManagedSelection = scanBinaryFileForSensorToken(QStringLiteral("/boot/firmware/camera-selection.txt"), 4096);
+    if (!fromManagedSelection.isEmpty())
+        return prettySensorName(fromManagedSelection);
+
     const QString fromI2cDevices = scanForSensorTokenInDirectory(QStringLiteral("/sys/bus/i2c/devices"), 200);
     if (!fromI2cDevices.isEmpty())
         return prettySensorName(fromI2cDevices);
@@ -167,10 +227,6 @@ QString DeviceInfoBridge::detectSensorName() const
     const QString fromDeviceTree = scanForSensorTokenInDirectory(QStringLiteral("/proc/device-tree"), 400);
     if (!fromDeviceTree.isEmpty())
         return prettySensorName(fromDeviceTree);
-
-    const QString fromManagedSelection = scanBinaryFileForSensorToken(QStringLiteral("/boot/firmware/camera-selection.txt"), 4096);
-    if (!fromManagedSelection.isEmpty())
-        return prettySensorName(fromManagedSelection);
 
     const QString fromConfig = scanBinaryFileForSensorToken(QStringLiteral("/boot/firmware/config.txt"), 4096);
     if (!fromConfig.isEmpty())

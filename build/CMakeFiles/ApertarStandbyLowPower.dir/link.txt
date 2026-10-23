@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/ApertarStandbyLowPower.dir/link.d CMakeFiles/ApertarStandbyLowPower.dir/src/StandbyLowPower.cpp.o -o apertar-standby-low-power

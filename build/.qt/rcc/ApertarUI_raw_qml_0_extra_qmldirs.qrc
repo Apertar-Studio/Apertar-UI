@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="qml/qmldir">/home/pi/ApertarUI/build/Apertar/UI/qml/qmldir</file>
+  </qresource>
+</RCC>
+

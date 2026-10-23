@@ -22,6 +22,7 @@ public:
 
     Q_INVOKABLE bool restartCamera();
     Q_INVOKABLE bool shutdownCamera();
+    Q_INVOKABLE bool applyTimeZone(const QString &timeZone);
     Q_INVOKABLE bool applyDateTime(int year, int month, int day, int hour, int minute, const QString &timeZone);
     Q_INVOKABLE bool applyFanMode(const QString &mode);
 
@@ -35,6 +36,8 @@ private:
     bool invokeSystemctl(const QStringList &arguments, QString *errorMessage);
     bool invokeTimedatedCall(const QString &method, const QList<QVariant> &arguments, QString *errorMessage);
     bool invokePrivilegedCommand(const QString &program, const QStringList &arguments, QString *errorMessage);
+    bool syncHardwareClockIfAvailable(QString *errorMessage);
+    QString normalizedPowerError(const QString &errorMessage) const;
     void refreshFanMode();
     void setLastError(const QString &lastError);
     void setCurrentTimeZone(const QString &timeZone);

@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/ApertarNetworkHelper.dir/link.d CMakeFiles/ApertarNetworkHelper.dir/ApertarNetworkHelper_autogen/mocs_compilation.cpp.o CMakeFiles/ApertarNetworkHelper.dir/src/NetworkHelper.cpp.o CMakeFiles/ApertarNetworkHelper.dir/src/WifiBridge.cpp.o -o apertar-network-helper  /usr/lib/aarch64-linux-gnu/libQt6Core.so.6.8.2

@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QString>
 
 class Ina219Bridge : public QObject
 {
@@ -19,6 +20,8 @@ class Ina219Bridge : public QObject
 public:
     explicit Ina219Bridge(int busNumber = 4, int address = 0x40, QObject *parent = nullptr);
     ~Ina219Bridge() override;
+
+    void startDeferredMonitoring();
 
     bool sensorAvailable() const { return m_sensorAvailable; }
     double busVoltageV() const { return m_busVoltageV; }
@@ -42,14 +45,18 @@ private slots:
     void updateReadings();
 
 private:
+    void loadConfiguration(int defaultBusNumber, int defaultAddress);
     bool ensureConnected();
     void disconnectDevice();
     bool writeRegister(quint8 reg, quint16 value);
     bool readRegister(quint8 reg, quint16 &value);
     static int estimateBatteryPercent(double voltageV, double currentA);
 
-    const int m_busNumber = 4;
-    const int m_address = 0x40;
+    int m_busNumber = 4;
+    int m_address = 0x40;
+    QString m_configPath;
+    bool m_enabled = true;
+    bool m_monitoringStarted = false;
 
     int m_fd = -1;
     QTimer m_timer;

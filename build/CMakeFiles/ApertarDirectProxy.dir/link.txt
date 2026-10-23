@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -Wl,--version-script=/home/pi/ApertarUI/src/DirectProxyStub.map -Wl,--dependency-file=CMakeFiles/ApertarDirectProxy.dir/link.d -shared -Wl,-soname,libproxy.so.1 -o apertar-runtime/libproxy.so.1 CMakeFiles/ApertarDirectProxy.dir/ApertarDirectProxy_autogen/mocs_compilation.cpp.o CMakeFiles/ApertarDirectProxy.dir/src/DirectProxyStub.c.o

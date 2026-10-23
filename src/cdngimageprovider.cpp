@@ -1,7 +1,9 @@
 #include "cdngimageprovider.h"
+#include "RawPreview.hpp"
 
 #include <QFileInfo>
 #include <QImage>
+#include <QImageReader>
 #include <QMutexLocker>
 #include <QPainter>
 #include <QPainterPath>
@@ -25,13 +27,46 @@
 namespace {
 constexpr uint16_t kPhotometricCfa = 32803;
 constexpr uint32_t kSubIfdTag = 330;
-constexpr int kPreviewCacheLimit = 256;
-constexpr int kPlaybackPrefetchCount = 8;
-constexpr int kPlaybackPrefetchThreshold = 3;
+constexpr int kPlaybackPrefetchThreshold = 8;
 
 QStringList dngNameFilters()
 {
     return {QStringLiteral("*.dng"), QStringLiteral("*.DNG")};
+}
+
+QImage scaleAndFitOnBlack(const QImage &image, const QSize &requestedSize);
+QImage loadTopLevelPreview(const QString &filePath, const QSize &requestedSize);
+
+bool isDngFile(const QString &filePath)
+{
+    return QFileInfo(filePath).suffix().compare(QStringLiteral("dng"), Qt::CaseInsensitive) == 0;
+}
+
+bool isTiffFile(const QString &filePath)
+{
+    const QString suffix = QFileInfo(filePath).suffix();
+    return suffix.compare(QStringLiteral("tif"), Qt::CaseInsensitive) == 0 ||
+           suffix.compare(QStringLiteral("tiff"), Qt::CaseInsensitive) == 0;
+}
+
+QImage loadStandardImage(const QString &filePath, const QSize &targetSize)
+{
+    if (isTiffFile(filePath)) {
+        const QImage tiffImage = loadTopLevelPreview(filePath, targetSize);
+        if (!tiffImage.isNull())
+            return tiffImage;
+    }
+
+    QImageReader reader(filePath);
+    reader.setAutoTransform(true);
+
+    QImage image;
+    if (!reader.read(&image) || image.isNull())
+        return {};
+
+    if (targetSize.isValid() && targetSize.width() > 0 && targetSize.height() > 0)
+        return scaleAndFitOnBlack(image, targetSize);
+    return image;
 }
 
 struct WhiteBalanceGains
@@ -56,24 +91,43 @@ constexpr Matrix3x3 kXyzToSrgb = {{
     0.0557f, -0.2040f,  1.0570f
 }};
 
+constexpr Matrix3x3 kD50ToD65 = {{
+     0.9555766f, -0.0230393f,  0.0631636f,
+    -0.0282895f,  1.0099416f,  0.0210077f,
+     0.0122982f, -0.0204830f,  1.3299098f
+}};
+
 WhiteBalanceGains previewDaylightGains()
 {
     return {2.8f, 1.0f, 1.6f};
 }
 
-QImage scaleAndCrop(const QImage &image, const QSize &requestedSize)
+QImage scaleAndFitOnBlack(const QImage &image, const QSize &requestedSize)
 {
     if (image.isNull() || !requestedSize.isValid()) {
         return image;
     }
 
-    const int targetPixels = requestedSize.width() * requestedSize.height();
+    const QSize canvasSize(qMax(1, requestedSize.width()), qMax(1, requestedSize.height()));
+    QSize scaledSize = image.size();
+    scaledSize.scale(canvasSize, Qt::KeepAspectRatio);
+    if (scaledSize.isEmpty()) {
+        return {};
+    }
+
+    const int targetPixels = canvasSize.width() * canvasSize.height();
     const Qt::TransformationMode transformMode =
         targetPixels <= 160000 ? Qt::FastTransformation : Qt::SmoothTransformation;
-    const QImage scaled = image.scaled(requestedSize, Qt::KeepAspectRatioByExpanding, transformMode);
-    const int x = qMax(0, (scaled.width() - requestedSize.width()) / 2);
-    const int y = qMax(0, (scaled.height() - requestedSize.height()) / 2);
-    return scaled.copy(x, y, requestedSize.width(), requestedSize.height());
+    const QImage scaled = image.scaled(scaledSize, Qt::KeepAspectRatio, transformMode);
+
+    QImage canvas(canvasSize, QImage::Format_RGB32);
+    canvas.fill(Qt::black);
+
+    QPainter painter(&canvas);
+    painter.drawImage((canvas.width() - scaled.width()) / 2,
+                      (canvas.height() - scaled.height()) / 2,
+                      scaled);
+    return canvas;
 }
 
 QImage applyRoundedCorners(const QImage &image, int radius)
@@ -119,6 +173,24 @@ bool isUsablePreviewDirectory(TIFF *tiff, uint32_t *outWidth = nullptr, uint32_t
            && photometric != kPhotometricCfa;
 }
 
+bool isRawCfaDirectory(TIFF *tiff)
+{
+    uint32_t width = 0;
+    uint32_t height = 0;
+    uint16_t samplesPerPixel = 1;
+    uint16_t photometric = 0;
+
+    TIFFGetField(tiff, TIFFTAG_IMAGEWIDTH, &width);
+    TIFFGetField(tiff, TIFFTAG_IMAGELENGTH, &height);
+    TIFFGetFieldDefaulted(tiff, TIFFTAG_SAMPLESPERPIXEL, &samplesPerPixel);
+    TIFFGetFieldDefaulted(tiff, TIFFTAG_PHOTOMETRIC, &photometric);
+
+    return width > 0
+           && height > 0
+           && samplesPerPixel == 1
+           && photometric == kPhotometricCfa;
+}
+
 QImage imageFromCurrentDirectory(TIFF *tiff, const QSize &requestedSize)
 {
     uint32_t width = 0;
@@ -147,13 +219,24 @@ QImage imageFromCurrentDirectory(TIFF *tiff, const QSize &requestedSize)
         }
     }
 
-    return scaleAndCrop(image, requestedSize);
+    return scaleAndFitOnBlack(image, requestedSize);
 }
 
 QImage loadTopLevelPreview(const QString &filePath, const QSize &requestedSize)
 {
     TIFF *tiff = openTiffWithCustomTags(filePath, "r");
     if (!tiff) {
+        return {};
+    }
+
+    uint16_t topLevelSubIfdCount = 0;
+    uint64_t *topLevelSubIfdOffsets = nullptr;
+    const bool hasTopLevelSubIfds =
+        TIFFGetField(tiff, kSubIfdTag, &topLevelSubIfdCount, &topLevelSubIfdOffsets)
+        && topLevelSubIfdCount > 0
+        && topLevelSubIfdOffsets;
+    if (isRawCfaDirectory(tiff) && !hasTopLevelSubIfds) {
+        TIFFClose(tiff);
         return {};
     }
 
@@ -219,24 +302,24 @@ QImage loadTopLevelPreview(const QString &filePath, const QSize &requestedSize)
     return previewImage;
 }
 
-QRectF aspectFillRect(int sourceWidth, int sourceHeight, const QSize &targetSize)
+QRectF aspectFitRect(int sourceWidth, int sourceHeight, const QSize &targetSize)
 {
     if (sourceWidth <= 0 || sourceHeight <= 0 || !targetSize.isValid()) {
-        return QRectF(0.0, 0.0, sourceWidth, sourceHeight);
+        return QRectF();
     }
 
     const qreal sourceAspect = static_cast<qreal>(sourceWidth) / static_cast<qreal>(sourceHeight);
     const qreal targetAspect = static_cast<qreal>(targetSize.width()) / static_cast<qreal>(targetSize.height());
 
     if (targetAspect > sourceAspect) {
-        const qreal cropHeight = static_cast<qreal>(sourceWidth) / targetAspect;
-        const qreal top = (static_cast<qreal>(sourceHeight) - cropHeight) * 0.5;
-        return QRectF(0.0, top, sourceWidth, cropHeight);
+        const qreal fittedWidth = static_cast<qreal>(targetSize.height()) * sourceAspect;
+        const qreal left = (static_cast<qreal>(targetSize.width()) - fittedWidth) * 0.5;
+        return QRectF(left, 0.0, fittedWidth, targetSize.height());
     }
 
-    const qreal cropWidth = static_cast<qreal>(sourceHeight) * targetAspect;
-    const qreal left = (static_cast<qreal>(sourceWidth) - cropWidth) * 0.5;
-    return QRectF(left, 0.0, cropWidth, sourceHeight);
+    const qreal fittedHeight = static_cast<qreal>(targetSize.width()) / sourceAspect;
+    const qreal top = (static_cast<qreal>(targetSize.height()) - fittedHeight) * 0.5;
+    return QRectF(0.0, top, targetSize.width(), fittedHeight);
 }
 
 Matrix3x3 multiplyMatrix(const Matrix3x3 &left, const Matrix3x3 &right)
@@ -294,23 +377,76 @@ std::array<float, 3> multiplyMatrixVector(const Matrix3x3 &matrix, const std::ar
     };
 }
 
+float profileBlendForWhiteBalance(const RawFrame &frame)
+{
+    if (!frame.hasAsShotNeutral) {
+        return 0.5f;
+    }
+
+    // Apertar writes AsShotNeutral from the camera CT curve. The blue/red
+    // neutral ratio moves steadily from tungsten toward daylight, which is
+    // enough for the lightweight playback preview to choose between profile
+    // matrix 1 and 2 without a full DNG temperature solver.
+    const float redNeutral = qMax(frame.asShotNeutral[0], 0.0001f);
+    const float blueNeutral = qMax(frame.asShotNeutral[2], 0.0001f);
+    const float ratio = blueNeutral / redNeutral;
+    const float t = qBound(0.0f, (ratio - 0.30f) / (0.90f - 0.30f), 1.0f);
+    return t * t * (3.0f - 2.0f * t);
+}
+
+Matrix3x3 matrixFromArray(const float *values)
+{
+    Matrix3x3 matrix;
+    for (int i = 0; i < 9; ++i) {
+        matrix.m[i] = values[i];
+    }
+    return matrix;
+}
+
+Matrix3x3 blendedMatrix(const float *first, const float *second, float blend)
+{
+    Matrix3x3 matrix;
+    for (int i = 0; i < 9; ++i) {
+        matrix.m[i] = first[i] + (second[i] - first[i]) * blend;
+    }
+    return matrix;
+}
+
 bool buildCameraToSrgbMatrix(const RawFrame &frame, Matrix3x3 &cameraToSrgb)
 {
-    if (!frame.hasColorMatrix1) {
+    const float blend = profileBlendForWhiteBalance(frame);
+
+    if (frame.hasForwardMatrix1 || frame.hasForwardMatrix2) {
+        Matrix3x3 cameraToXyzD50;
+        if (frame.hasForwardMatrix1 && frame.hasForwardMatrix2) {
+            cameraToXyzD50 = blendedMatrix(frame.forwardMatrix1, frame.forwardMatrix2, blend);
+        } else {
+            cameraToXyzD50 = matrixFromArray(frame.hasForwardMatrix1 ? frame.forwardMatrix1 : frame.forwardMatrix2);
+        }
+
+        const Matrix3x3 cameraToXyzD65 = multiplyMatrix(kD50ToD65, cameraToXyzD50);
+        cameraToSrgb = multiplyMatrix(kXyzToSrgb, cameraToXyzD65);
+        return true;
+    }
+
+    if (!frame.hasColorMatrix1 && !frame.hasColorMatrix2) {
         return false;
     }
 
     Matrix3x3 xyzToCamera;
-    for (int i = 0; i < 9; ++i) {
-        xyzToCamera.m[i] = frame.colorMatrix1[i];
+    if (frame.hasColorMatrix1 && frame.hasColorMatrix2) {
+        xyzToCamera = blendedMatrix(frame.colorMatrix1, frame.colorMatrix2, blend);
+    } else {
+        xyzToCamera = matrixFromArray(frame.hasColorMatrix1 ? frame.colorMatrix1 : frame.colorMatrix2);
     }
 
-    Matrix3x3 cameraToXyz;
-    if (!invertMatrix(xyzToCamera, cameraToXyz)) {
+    Matrix3x3 cameraToXyzD50;
+    if (!invertMatrix(xyzToCamera, cameraToXyzD50)) {
         return false;
     }
 
-    cameraToSrgb = multiplyMatrix(kXyzToSrgb, cameraToXyz);
+    const Matrix3x3 cameraToXyzD65 = multiplyMatrix(kD50ToD65, cameraToXyzD50);
+    cameraToSrgb = multiplyMatrix(kXyzToSrgb, cameraToXyzD65);
     return true;
 }
 
@@ -338,10 +474,11 @@ WhiteBalanceGains previewWhiteBalance(const RawFrame &frame)
     return previewDaylightGains();
 }
 
+template <typename Normalize>
 std::array<float, 3> cameraRgbFromQuad(const RawFrame &frame,
                                        int x,
                                        int y,
-                                       const std::function<float (int, int)> &normAt)
+                                       const Normalize &normAt)
 {
     const float p00 = normAt(x, y);
     const float p10 = normAt(x + 1, y);
@@ -362,10 +499,69 @@ std::array<float, 3> cameraRgbFromQuad(const RawFrame &frame,
     return {p00, (p10 + p01) * 0.5f, p11};
 }
 
+template <typename Normalize>
+std::array<float, 3> interpolateCameraRgb(const RawFrame &frame,
+                                          qreal sampleX,
+                                          qreal sampleY,
+                                          int left,
+                                          int top,
+                                          int sourceQuadWidth,
+                                          int sourceQuadHeight,
+                                          const Normalize &normAt)
+{
+    const qreal clampedX = qBound<qreal>(0.0, sampleX, static_cast<qreal>(sourceQuadWidth - 1));
+    const qreal clampedY = qBound<qreal>(0.0, sampleY, static_cast<qreal>(sourceQuadHeight - 1));
+    const int qx0 = qBound(0, static_cast<int>(std::floor(clampedX)), sourceQuadWidth - 1);
+    const int qy0 = qBound(0, static_cast<int>(std::floor(clampedY)), sourceQuadHeight - 1);
+    const int qx1 = qMin(qx0 + 1, sourceQuadWidth - 1);
+    const int qy1 = qMin(qy0 + 1, sourceQuadHeight - 1);
+    const float tx = static_cast<float>(clampedX - static_cast<qreal>(qx0));
+    const float ty = static_cast<float>(clampedY - static_cast<qreal>(qy0));
+
+    const auto c00 = cameraRgbFromQuad(frame, left + qx0 * 2, top + qy0 * 2, normAt);
+    const auto c10 = cameraRgbFromQuad(frame, left + qx1 * 2, top + qy0 * 2, normAt);
+    const auto c01 = cameraRgbFromQuad(frame, left + qx0 * 2, top + qy1 * 2, normAt);
+    const auto c11 = cameraRgbFromQuad(frame, left + qx1 * 2, top + qy1 * 2, normAt);
+
+    std::array<float, 3> result;
+    for (int channel = 0; channel < 3; ++channel) {
+        const float topBlend = c00[channel] + (c10[channel] - c00[channel]) * tx;
+        const float bottomBlend = c01[channel] + (c11[channel] - c01[channel]) * tx;
+        result[channel] = topBlend + (bottomBlend - topBlend) * ty;
+    }
+    return result;
+}
+
 int gamma8(float value)
 {
-    const float gamma = std::pow(qBound(0.0f, value, 1.0f), 1.0f / 2.2f);
-    return qBound(0, qRound(gamma * 255.0f), 255);
+    constexpr int kGammaLutSize = 4096;
+    static const std::array<uint8_t, kGammaLutSize + 1> lut = []() {
+        std::array<uint8_t, kGammaLutSize + 1> values{};
+        for (int i = 0; i <= kGammaLutSize; ++i) {
+            const float normalized = static_cast<float>(i) / kGammaLutSize;
+            values[static_cast<size_t>(i)] = static_cast<uint8_t>(
+                qBound(0, qRound(std::pow(normalized, 1.0f / 2.2f) * 255.0f), 255));
+        }
+        return values;
+    }();
+
+    const int index = qBound(0, qRound(value * kGammaLutSize), kGammaLutSize);
+    return lut[static_cast<size_t>(index)];
+}
+
+int srgb8(float value)
+{
+    static const std::array<uint8_t, 4097> lut = [] {
+        std::array<uint8_t, 4097> values {};
+        for (size_t i = 0; i < values.size(); ++i) {
+            const float linear = float(i) / 4096.0f;
+            const float encoded = linear <= 0.0031308f ? 12.92f * linear
+                : 1.055f * std::pow(linear, 1.0f / 2.4f) - 0.055f;
+            values[i] = qBound(0, qRound(encoded * 255.0f), 255);
+        }
+        return values;
+    }();
+    return lut[qBound(0, qRound(value * 4096.0f), 4096)];
 }
 
 float smoothstep(float edge0, float edge1, float value)
@@ -378,9 +574,11 @@ float smoothstep(float edge0, float edge1, float value)
     return t * t * (3.0f - 2.0f * t);
 }
 
-QImage renderRawPreview(const RawFrame &frame, const QSize &requestedSize)
+template <typename Sample>
+QImage renderRawPreviewImpl(const RawFrame &frame, const QSize &requestedSize, const Sample &sample,
+                           const float *cameraToLinearSrgb = nullptr, float digitalGain = 1.0f)
 {
-    if (!frame.valid || frame.width <= 1 || frame.height <= 1 || frame.pixels.isEmpty()) {
+    if (!frame.valid || frame.width <= 1 || frame.height <= 1) {
         return {};
     }
 
@@ -391,8 +589,8 @@ QImage renderRawPreview(const RawFrame &frame, const QSize &requestedSize)
 
     const int evenWidth = qMax(2, ((right - left) / 2) * 2);
     const int evenHeight = qMax(2, ((bottom - top) / 2) * 2);
-    const int sourceQuadWidth = evenWidth / 2;
-    const int sourceQuadHeight = evenHeight / 2;
+    const int sourceQuadWidth = frame.monochrome ? right - left : evenWidth / 2;
+    const int sourceQuadHeight = frame.monochrome ? bottom - top : evenHeight / 2;
     const QSize outputSize = requestedSize.isValid() ? requestedSize : QSize(sourceQuadWidth, sourceQuadHeight);
     const int outWidth = qMax(2, outputSize.width());
     const int outHeight = qMax(2, outputSize.height());
@@ -400,37 +598,53 @@ QImage renderRawPreview(const RawFrame &frame, const QSize &requestedSize)
         return {};
     }
 
-    const QRectF cropRect = aspectFillRect(sourceQuadWidth, sourceQuadHeight, QSize(outWidth, outHeight));
+    const QRectF fitRect = aspectFitRect(sourceQuadWidth, sourceQuadHeight, QSize(outWidth, outHeight));
+    const int drawLeft = qBound(0, qRound(fitRect.left()), outWidth - 1);
+    const int drawTop = qBound(0, qRound(fitRect.top()), outHeight - 1);
+    const int drawWidth = qBound(1, qRound(fitRect.width()), outWidth - drawLeft);
+    const int drawHeight = qBound(1, qRound(fitRect.height()), outHeight - drawTop);
 
+    const float inverseRange = 1.0f / qMax(1.0f, frame.whiteLevel - frame.blackLevel);
     auto normAt = [&](int px, int py) -> float {
-        px = qBound(0, px, frame.width - 1);
-        py = qBound(0, py, frame.height - 1);
-        const int index = py * frame.width + px;
-        const float range = qMax(1.0f, frame.whiteLevel - frame.blackLevel);
-        return qBound(0.0f, (static_cast<float>(frame.pixels.at(index)) - frame.blackLevel) / range, 1.0f);
+        return qBound(0.0f,
+                      (static_cast<float>(sample(px, py)) - frame.blackLevel) * inverseRange,
+                      1.0f);
     };
 
     Matrix3x3 cameraToSrgb;
-    const bool hasColorTransform = buildCameraToSrgbMatrix(frame, cameraToSrgb);
+    const bool ispColor = cameraToLinearSrgb != nullptr;
+    const bool hasColorTransform = !frame.monochrome && (ispColor || buildCameraToSrgbMatrix(frame, cameraToSrgb));
+    if (ispColor) cameraToSrgb = matrixFromArray(cameraToLinearSrgb);
     const WhiteBalanceGains gains = previewWhiteBalance(frame);
+    const float ispCommonGain = digitalGain / qMax(0.1f, qMin(1.0f, qMin(gains.red, gains.blue)));
+    constexpr float kPreviewExposureScale = 1.0f;
+    QImage image(outWidth, outHeight, QImage::Format_RGB32);
+    image.fill(Qt::black);
+    constexpr float kSaturationBoost = 1.35f;
 
-    QVector<std::array<float, 3>> linearRgb;
-    linearRgb.resize(outWidth * outHeight);
-    QVector<float> sensorHighlights;
-    sensorHighlights.resize(outWidth * outHeight);
-    QVector<float> lumas;
-    lumas.reserve(outWidth * outHeight);
-
-    for (int y = 0; y < outHeight; ++y) {
-        const qreal sampleY = cropRect.top() + (static_cast<qreal>(y) + 0.5) * cropRect.height() / static_cast<qreal>(outHeight);
-        const int qy = qBound(0, static_cast<int>(sampleY), sourceQuadHeight - 1);
-        const int sy = top + qy * 2;
-        for (int x = 0; x < outWidth; ++x) {
-            const qreal sampleX = cropRect.left() + (static_cast<qreal>(x) + 0.5) * cropRect.width() / static_cast<qreal>(outWidth);
-            const int qx = qBound(0, static_cast<int>(sampleX), sourceQuadWidth - 1);
-            const int sx = left + qx * 2;
-            std::array<float, 3> camera = cameraRgbFromQuad(frame, sx, sy, normAt);
-            sensorHighlights[y * outWidth + x] = qMax(camera[0], qMax(camera[1], camera[2]));
+    for (int y = 0; y < drawHeight; ++y) {
+        QRgb *scanline = reinterpret_cast<QRgb *>(image.scanLine(drawTop + y));
+        const qreal sampleY = (static_cast<qreal>(y) + 0.5) * sourceQuadHeight / static_cast<qreal>(drawHeight);
+        for (int x = 0; x < drawWidth; ++x) {
+            const qreal sampleX = (static_cast<qreal>(x) + 0.5) * sourceQuadWidth / static_cast<qreal>(drawWidth);
+            if (frame.monochrome) {
+                // Mono samples already contain the complete image: no CFA,
+                // white balance or colour matrix should be applied.
+                const int px = qBound(left, left + int(sampleX), right - 1);
+                const int py = qBound(top, top + int(sampleY), bottom - 1);
+                const int grey = srgb8(normAt(px, py));
+                scanline[drawLeft + x] = qRgb(grey, grey, grey);
+                continue;
+            }
+            std::array<float, 3> camera = interpolateCameraRgb(frame,
+                                                               sampleX,
+                                                               sampleY,
+                                                               left,
+                                                               top,
+                                                               sourceQuadWidth,
+                                                               sourceQuadHeight,
+                                                               normAt);
+            const float sensorHighlight = qMax(camera[0], qMax(camera[1], camera[2]));
             std::array<float, 3> balanced = {
                 camera[0] * gains.red,
                 camera[1] * gains.green,
@@ -438,37 +652,24 @@ QImage renderRawPreview(const RawFrame &frame, const QSize &requestedSize)
             };
             std::array<float, 3> rgb;
 
+            if (ispColor) {
+                // The ISP clips balanced channels before its RGB CCM. Apply
+                // that recorded CCM directly, without an XYZ inverse or CAT.
+                for (float &channel : balanced)
+                    channel = qBound(0.0f, channel * ispCommonGain, 1.0f);
+                rgb = multiplyMatrixVector(cameraToSrgb, balanced);
+                scanline[drawLeft + x] = qRgb(srgb8(rgb[0]), srgb8(rgb[1]), srgb8(rgb[2]));
+                continue;
+            }
+
             if (hasColorTransform) {
                 rgb = multiplyMatrixVector(cameraToSrgb, balanced);
             } else {
                 rgb = balanced;
             }
-
-            linearRgb[y * outWidth + x] = rgb;
-            const float luma = qMax(0.0f, 0.2126f * rgb[0] + 0.7152f * rgb[1] + 0.0722f * rgb[2]);
-            lumas.append(luma);
-        }
-    }
-
-    float scale = 1.0f;
-    if (!lumas.isEmpty()) {
-        std::sort(lumas.begin(), lumas.end());
-        const int percentileIndex = qBound(0, static_cast<int>(lumas.size() * 0.995f), lumas.size() - 1);
-        scale = 1.0f / qMax(lumas.at(percentileIndex), 0.0001f);
-    }
-
-    QImage image(outWidth, outHeight, QImage::Format_RGB32);
-    constexpr float kSaturationBoost = 1.35f;
-
-    for (int y = 0; y < outHeight; ++y) {
-        QRgb *scanline = reinterpret_cast<QRgb *>(image.scanLine(y));
-        for (int x = 0; x < outWidth; ++x) {
-            const int index = y * outWidth + x;
-            std::array<float, 3> rgb = linearRgb.at(index);
-            const float sensorHighlight = sensorHighlights.at(index);
-            float r = qMax(0.0f, rgb[0] * scale);
-            float g = qMax(0.0f, rgb[1] * scale);
-            float b = qMax(0.0f, rgb[2] * scale);
+            float r = qMax(0.0f, rgb[0] * kPreviewExposureScale);
+            float g = qMax(0.0f, rgb[1] * kPreviewExposureScale);
+            float b = qMax(0.0f, rgb[2] * kPreviewExposureScale);
 
             r = r / (1.0f + r);
             g = g / (1.0f + g);
@@ -489,35 +690,66 @@ QImage renderRawPreview(const RawFrame &frame, const QSize &requestedSize)
             g = g * (1.0f - whiteBlend) + whiteLevel * whiteBlend;
             b = b * (1.0f - whiteBlend) + whiteLevel * whiteBlend;
 
-            scanline[x] = qRgb(gamma8(r), gamma8(g), gamma8(b));
+            scanline[drawLeft + x] = qRgb(gamma8(r), gamma8(g), gamma8(b));
         }
     }
 
     return image;
 }
 
-QImage loadResolvedImage(const QString &filePath, const QSize &targetSize, bool previewOnly, int radius)
+QImage renderRawPreview(const RawFrame &frame, const QSize &size)
+{
+    if (frame.pixels.isEmpty()) return {};
+    const auto *pixels = frame.pixels.constData();
+    return renderRawPreviewImpl(frame, size, [&](int x, int y) { return pixels[y * frame.width + x]; });
+}
+
+const RawFrame &decodeReusableFrame(const QString &filePath)
+{
+    static thread_local RawFrame scratchFrame;
+    DngDecoder::decodeFileInto(filePath, scratchFrame);
+    return scratchFrame;
+}
+
+QImage loadResolvedImage(const QString &filePath,
+                         const QSize &targetSize,
+                         bool previewOnly,
+                         int radius,
+                         QString *decodeError = nullptr)
 {
     if (filePath.isEmpty()) {
         return {};
     }
 
+    if (!isDngFile(filePath)) {
+        QImage image = loadStandardImage(filePath, targetSize);
+        if (radius > 0 && !image.isNull())
+            image = applyRoundedCorners(image, radius);
+        if (image.isNull() && decodeError)
+            *decodeError = QStringLiteral("Could not open image file.");
+        return image;
+    }
+
     QImage image;
-    const QImage previewImage = loadTopLevelPreview(filePath, targetSize);
     if (previewOnly) {
-        image = previewImage;
-        if (image.isNull()) {
-            const RawFrame frame = DngDecoder::decodeFile(filePath);
-            if (frame.valid) {
-                image = renderRawPreview(frame, targetSize);
+        const RawFrame &frame = decodeReusableFrame(filePath);
+        if (frame.valid) {
+            image = renderRawPreview(frame, targetSize);
+        } else {
+            image = loadTopLevelPreview(filePath, targetSize);
+            if (image.isNull() && decodeError) {
+                *decodeError = frame.error;
             }
         }
     } else {
-        const RawFrame frame = DngDecoder::decodeFile(filePath);
+        const RawFrame &frame = decodeReusableFrame(filePath);
         if (frame.valid) {
             image = renderRawPreview(frame, targetSize);
+        } else if (decodeError) {
+            *decodeError = frame.error;
         }
         if (image.isNull()) {
+            const QImage previewImage = loadTopLevelPreview(filePath, targetSize);
             image = previewImage;
         }
     }
@@ -597,16 +829,104 @@ bool resolvePrefetchClip(const QString &filePath,
 }
 }
 
-CdngImageProvider::CdngImageProvider(bool forceAsynchronousLoading, bool previewOnly, bool enablePrefetch)
+QImage renderRawFramePreview(const RawFrame &frame, const QSize &size,
+                             RawPreviewSample sample, const void *context,
+                             const float *cameraToLinearSrgb, float digitalGain)
+{
+    if (!sample) {
+        if (frame.pixels.isEmpty()) return {};
+        return renderRawPreviewImpl(frame, size, [&](int x, int y) { return frame.pixels[y * frame.width + x]; },
+                                    cameraToLinearSrgb, digitalGain);
+    }
+    return renderRawPreviewImpl(frame, size, [&](int x, int y) { return sample(context, x, y); },
+                                cameraToLinearSrgb, digitalGain);
+}
+
+CdngImageProvider::CdngImageProvider(bool forceAsynchronousLoading,
+                                     bool previewOnly,
+                                     bool enablePrefetch,
+                                     int maxCachedImages,
+                                     int playbackPrefetchCount,
+                                     qint64 maxCachedBytes)
     : QQuickImageProvider(QQuickImageProvider::Image,
-                          forceAsynchronousLoading
+                              forceAsynchronousLoading
                               ? QQuickImageProvider::ForceAsynchronousImageLoading
                               : QQuickImageProvider::Flags())
     , m_previewOnly(previewOnly)
     , m_enablePrefetch(enablePrefetch)
+    , m_maxCachedImages(std::max(1, maxCachedImages))
+    , m_playbackPrefetchCount(std::max(1, playbackPrefetchCount))
+    , m_maxCachedBytes(std::max<qint64>(0, maxCachedBytes))
 {
-    m_prefetchThreadPool.setMaxThreadCount(1);
-    m_prefetchThreadPool.setExpiryTimeout(-1);
+    m_prefetchThreadPool.setMaxThreadCount(m_enablePrefetch ? 2 : 1);
+    m_prefetchThreadPool.setExpiryTimeout(10000);
+}
+
+void CdngImageProvider::clearCache()
+{
+    m_cacheEpoch.fetch_add(1, std::memory_order_relaxed);
+    m_prefetchThreadPool.clear();
+
+    QMutexLocker locker(&m_cacheMutex);
+    m_thumbnailCache.clear();
+    m_cacheOrder.clear();
+    m_cachedBytes = 0;
+    m_prefetchFrontierByClip.clear();
+    m_prefetchRequestsInFlight.clear();
+}
+
+void CdngImageProvider::prefetchAround(const QString &filePath,
+                                       int width,
+                                       int height,
+                                       int radius,
+                                       int count)
+{
+    if (!m_enablePrefetch || filePath.isEmpty() || count <= 0)
+        return;
+
+    const QSize requestedSize(qMax(2, width), qMax(2, height));
+
+    QString clipKey;
+    QStringList clipFrames;
+    int currentIndex = -1;
+    if (!resolvePrefetchClip(filePath, requestedSize, radius, &clipKey, &clipFrames, &currentIndex))
+        return;
+
+    const int startIndex = currentIndex;
+    const int endIndex = qMin(clipFrames.size() - 1, currentIndex + count - 1);
+    if (startIndex < 0 || startIndex > endIndex)
+        return;
+    const uint64_t cacheEpoch = m_cacheEpoch.load(std::memory_order_relaxed);
+
+    {
+        QMutexLocker locker(&m_cacheMutex);
+        if (m_prefetchRequestsInFlight.contains(clipKey))
+            return;
+        m_prefetchRequestsInFlight.insert(clipKey);
+    }
+
+    m_prefetchThreadPool.start(QRunnable::create([this, clipKey, clipFrames, startIndex, endIndex, requestedSize, radius, cacheEpoch]() {
+        for (int index = startIndex; index <= endIndex; ++index) {
+            const QString &candidatePath = clipFrames.at(index);
+            const QString candidateKey = cacheKeyForPath(candidatePath, requestedSize, radius);
+            {
+                QMutexLocker locker(&m_cacheMutex);
+                if (m_thumbnailCache.contains(candidateKey))
+                    continue;
+            }
+
+            const QImage image = loadResolvedImage(candidatePath, requestedSize, m_previewOnly, radius);
+            if (!image.isNull())
+                insertCachedImage(candidateKey, image, cacheEpoch);
+        }
+
+        QMutexLocker locker(&m_cacheMutex);
+        if (cacheEpoch == m_cacheEpoch.load(std::memory_order_relaxed)) {
+            const int previousFrontier = m_prefetchFrontierByClip.value(clipKey, -1);
+            m_prefetchFrontierByClip.insert(clipKey, qMax(previousFrontier, endIndex));
+        }
+        m_prefetchRequestsInFlight.remove(clipKey);
+    }));
 }
 
 QImage CdngImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
@@ -622,6 +942,7 @@ QImage CdngImageProvider::requestImage(const QString &id, QSize *size, const QSi
     const QString cacheKey = (m_previewOnly && !filePath.isEmpty())
                                  ? cacheKeyForPath(filePath, targetSize, radius)
                                  : cacheKeyForId(id, targetSize);
+    const uint64_t cacheEpoch = m_cacheEpoch.load(std::memory_order_relaxed);
 
     if (m_previewOnly) {
         QMutexLocker locker(&m_cacheMutex);
@@ -642,13 +963,13 @@ QImage CdngImageProvider::requestImage(const QString &id, QSize *size, const QSi
         if (filePath.isEmpty()) {
             image = makePlaceholder(QStringLiteral("No frame path provided"), targetSize);
         } else {
-            image = loadResolvedImage(filePath, targetSize, m_previewOnly, radius);
+            QString decodeError;
+            image = loadResolvedImage(filePath, targetSize, m_previewOnly, radius, &decodeError);
 
             if (image.isNull()) {
-                const RawFrame frame = m_previewOnly ? RawFrame() : DngDecoder::decodeFile(filePath);
-                const QString message = frame.error.isEmpty()
+                const QString message = decodeError.isEmpty()
                                             ? QStringLiteral("Could not render %1").arg(QFileInfo(filePath).fileName())
-                                            : QStringLiteral("Decode failed: %1").arg(frame.error);
+                                            : QStringLiteral("Decode failed: %1").arg(decodeError);
                 image = makePlaceholder(message, targetSize);
             }
         }
@@ -659,7 +980,7 @@ QImage CdngImageProvider::requestImage(const QString &id, QSize *size, const QSi
     }
 
     if (m_previewOnly && !image.isNull()) {
-        insertCachedImage(cacheKey, image);
+        insertCachedImage(cacheKey, image, cacheEpoch);
         if (m_enablePrefetch && !filePath.isEmpty())
             schedulePrefetch(filePath, targetSize, radius);
     }
@@ -681,19 +1002,35 @@ QString CdngImageProvider::cacheKeyForPath(const QString &filePath, const QSize 
         .arg(radius);
 }
 
-void CdngImageProvider::insertCachedImage(const QString &cacheKey, const QImage &image)
+void CdngImageProvider::insertCachedImage(const QString &cacheKey, const QImage &image, uint64_t cacheEpoch)
 {
     if (image.isNull()) {
         return;
     }
 
     QMutexLocker locker(&m_cacheMutex);
-    if (m_thumbnailCache.size() > kPreviewCacheLimit) {
-        m_thumbnailCache.clear();
-        m_prefetchFrontierByClip.clear();
-        m_prefetchRequestsInFlight.clear();
-    }
+    if (cacheEpoch != m_cacheEpoch.load(std::memory_order_relaxed))
+        return;
+
+    m_cacheOrder.removeAll(cacheKey);
+    m_cacheOrder.append(cacheKey);
+
+    const auto existing = m_thumbnailCache.constFind(cacheKey);
+    if (existing != m_thumbnailCache.constEnd())
+        m_cachedBytes -= static_cast<qint64>(existing.value().sizeInBytes());
     m_thumbnailCache.insert(cacheKey, image);
+    m_cachedBytes += static_cast<qint64>(image.sizeInBytes());
+
+    while ((m_thumbnailCache.size() > m_maxCachedImages
+            || (m_maxCachedBytes > 0 && m_cachedBytes > m_maxCachedBytes))
+           && m_cacheOrder.size() > 1) {
+        const QString oldestKey = m_cacheOrder.takeFirst();
+        const auto oldest = m_thumbnailCache.find(oldestKey);
+        if (oldest == m_thumbnailCache.end())
+            continue;
+        m_cachedBytes -= static_cast<qint64>(oldest.value().sizeInBytes());
+        m_thumbnailCache.erase(oldest);
+    }
 }
 
 void CdngImageProvider::schedulePrefetch(const QString &filePath, const QSize &requestedSize, int radius)
@@ -711,6 +1048,7 @@ void CdngImageProvider::schedulePrefetch(const QString &filePath, const QSize &r
 
     int startIndex = -1;
     int endIndex = -1;
+    const uint64_t cacheEpoch = m_cacheEpoch.load(std::memory_order_relaxed);
     {
         QMutexLocker locker(&m_cacheMutex);
         const int frontier = m_prefetchFrontierByClip.value(clipKey, currentIndex);
@@ -720,14 +1058,14 @@ void CdngImageProvider::schedulePrefetch(const QString &filePath, const QSize &r
             return;
 
         startIndex = qMax(currentIndex + 1, frontier + 1);
-        endIndex = qMin(clipFrames.size() - 1, qMax(frontier, currentIndex) + kPlaybackPrefetchCount);
+        endIndex = qMin(clipFrames.size() - 1, qMax(frontier, currentIndex) + m_playbackPrefetchCount);
         if (startIndex > endIndex)
             return;
 
         m_prefetchRequestsInFlight.insert(clipKey);
     }
 
-    m_prefetchThreadPool.start(QRunnable::create([this, clipKey, clipFrames, startIndex, endIndex, requestedSize, radius]() {
+    m_prefetchThreadPool.start(QRunnable::create([this, clipKey, clipFrames, startIndex, endIndex, requestedSize, radius, cacheEpoch]() {
         for (int index = startIndex; index <= endIndex; ++index) {
             const QString &candidatePath = clipFrames.at(index);
             const QString candidateKey = cacheKeyForPath(candidatePath, requestedSize, radius);
@@ -739,12 +1077,14 @@ void CdngImageProvider::schedulePrefetch(const QString &filePath, const QSize &r
 
             const QImage image = loadResolvedImage(candidatePath, requestedSize, m_previewOnly, radius);
             if (!image.isNull())
-                insertCachedImage(candidateKey, image);
+                insertCachedImage(candidateKey, image, cacheEpoch);
         }
 
         QMutexLocker locker(&m_cacheMutex);
-        const int previousFrontier = m_prefetchFrontierByClip.value(clipKey, -1);
-        m_prefetchFrontierByClip.insert(clipKey, qMax(previousFrontier, endIndex));
+        if (cacheEpoch == m_cacheEpoch.load(std::memory_order_relaxed)) {
+            const int previousFrontier = m_prefetchFrontierByClip.value(clipKey, -1);
+            m_prefetchFrontierByClip.insert(clipKey, qMax(previousFrontier, endIndex));
+        }
         m_prefetchRequestsInFlight.remove(clipKey);
     }));
 }

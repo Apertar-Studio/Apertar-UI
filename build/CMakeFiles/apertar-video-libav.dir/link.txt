@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/apertar-video-libav.dir/link.d -shared  -o apertar-video-libav.so "CMakeFiles/apertar-video-libav.dir/src/VideoPlaybackLibav.cpp.o"  /usr/lib/aarch64-linux-gnu/libavcodec.so /usr/lib/aarch64-linux-gnu/libavformat.so /usr/lib/aarch64-linux-gnu/libavutil.so /usr/lib/aarch64-linux-gnu/libswscale.so
